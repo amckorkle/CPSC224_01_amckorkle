@@ -7,6 +7,7 @@
 import java.util.*;
 
 public class ICA1{
+	
 	public static void main(String[] args){
 		double distance = -1;
 		int userNum = 0;
@@ -37,6 +38,12 @@ public class ICA1{
 		}
 	}
 
+	/*
+	Converts meters to kilometers
+	pre: user has entered distance in meters
+	post: meters are converted to kilometers and the conversion is shown on the screen
+	usage: showKilometers(distance);
+	*/
 	public static void showKilometers(double meters){
 		double kilometers;
 	
@@ -44,6 +51,12 @@ public class ICA1{
 		System.out.println(meters + " meters is " + kilometers + " kilometers.");
 	}
 
+	/*
+	Converts meters to inches
+	pre: user has entered distance in meters
+	post: meters are converted to inches and the conversion is shown on the screen
+	usage: showInches(distance);
+	*/
 	public static void showInches(double meters){
 		double inches;
 	
@@ -51,6 +64,12 @@ public class ICA1{
 		System.out.println(meters + " meters is " + inches + " inches.");
 	}	
 
+	/*
+	Converts meters to feet
+	pre: user has entered distance in meters
+	post: meters are converted to feet and the conversion is shown on the screen
+	usage: showFeet(distance);
+	*/
 	public static void showFeet(double meters){
 		double feet;
 	
@@ -58,6 +77,12 @@ public class ICA1{
 		System.out.println(meters + " meters is " + feet + " feet.");
 	}
 
+	/*
+	Prints ut the menu to choose from
+	pre: none
+	post: the menu is displayed on the screen
+	usage: menu();
+	*/
 	public static void menu(){
 		System.out.println();
 		System.out.println("1. Convert to Kilometers");
@@ -66,5 +91,6 @@ public class ICA1{
 		System.out.println("4. Quit the Program");
 		System.out.println();
 	}
+	
 }
 
