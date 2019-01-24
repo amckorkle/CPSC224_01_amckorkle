@@ -63,6 +63,7 @@ public class ICA1{
 		System.out.println("2. Convert to Inches");
 		System.out.println("3. Convert to Feet");
 		System.out.println("4. Quit the Program");
+		System.out.println();
 	}
 }
 
