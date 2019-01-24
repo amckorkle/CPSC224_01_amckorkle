@@ -59,6 +59,7 @@ public class ICA1{
 	}
 
 	public static void menu(){
+		System.out.println();
 		System.out.println("1. Convert to Kilometers");
 		System.out.println("2. Convert to Inches");
 		System.out.println("3. Convert to Feet");
