@@ -5,6 +5,7 @@
  */
 package hangman;
 import javax.swing.JOptionPane;
+import java.util.*;
 /**
  *
  * @author aylam
@@ -16,8 +17,13 @@ public class Hangman {
     public static void main(String[] args) {
         
         int userChoice = menu();
-        if(userChoice == 1){}
-        else if(userChoice == 2){}
+        if(userChoice == 1){
+            String randomWord = chooseWordRandomly();
+            System.out.println(randomWord);
+        }
+        else if(userChoice == 2){
+            
+        }
         else{
             exitMessage();
         }
@@ -31,6 +37,14 @@ public class Hangman {
     
     public static void exitMessage(){
         System.out.println("Thanks for playing hangman");
+    }
+    
+    public static String chooseWordRandomly(){
+        String[] words = {"Smoothie", "Teeth", "Dog", "Food", "Homework", "Math", "Zebra", "Penguin"};
+        Random rand = new Random();
+        int index = rand.nextInt(words.length);
+        String randomWord = words[index];
+        return randomWord;
     }
     
 }
