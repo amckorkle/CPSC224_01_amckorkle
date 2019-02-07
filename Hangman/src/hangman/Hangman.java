@@ -20,6 +20,7 @@ public class Hangman {
         if(userChoice == 1){
             String randomWord = chooseWordRandomly();
             System.out.println(randomWord);
+            displayDashes(randomWord);
         }
         else if(userChoice == 2){
             
@@ -45,6 +46,14 @@ public class Hangman {
         int index = rand.nextInt(words.length);
         String randomWord = words[index];
         return randomWord;
+    }
+    
+    public static void displayDashes(String randomWord){
+        String dashes = "";
+        for(int i = 0; i < randomWord.length(); i++){
+            dashes = dashes + "- ";
+        }
+        JOptionPane.showMessageDialog(null, dashes);
     }
     
 }
