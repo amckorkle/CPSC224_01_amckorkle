@@ -6,6 +6,7 @@
 package hangman;
 import javax.swing.JOptionPane;
 import java.util.*;
+
 /**
  *
  * @author aylam
@@ -17,10 +18,17 @@ public class Hangman {
     public static void main(String[] args) {
         
         int userChoice = menu();
+        String secretWord;
+        String userGuess;
+        String dashes = "";
+        
         if(userChoice == 1){
             String randomWord = chooseWordRandomly();
             System.out.println(randomWord);
-            displayDashes(randomWord);
+            dashes = initializeDashes(randomWord);
+            userGuess = getUserGuess(dashes);
+            secretWord = displayDashes(randomWord, userGuess, dashes);
+            
         }
         else if(userChoice == 2){
             
@@ -28,6 +36,8 @@ public class Hangman {
         else{
             exitMessage();
         }
+        
+        System.exit(0);
     }
     
     public static int menu(){
@@ -48,12 +58,37 @@ public class Hangman {
         return randomWord;
     }
     
-    public static void displayDashes(String randomWord){
-        String dashes = "";
-        for(int i = 0; i < randomWord.length(); i++){
-            dashes = dashes + "- ";
+    public static String displayDashes(String randomWord, String userGuess, String dashes){
+        char[] mysteryWord = new char[randomWord.length()];
+        
+        for(int j = 0; j < randomWord.length(); j++){
+            if(userGuess.charAt(0) == randomWord.charAt(j)){
+                mysteryWord[j] = userGuess.charAt(0);
+            }
+            else{
+                mysteryWord[j] = '-';
+            }
+            dashes = String.valueOf(mysteryWord);
         }
         JOptionPane.showMessageDialog(null, dashes);
+        return dashes;
     }
-    
+   
+    public static String initializeDashes(String randomWord){
+        String dashes = "";
+        String userGuess;
+        char[] mysteryWord = new char[randomWord.length()];
+        
+        for(int i = 0; i < randomWord.length(); i++){
+            mysteryWord[i] = '-';
+            dashes = String.valueOf(mysteryWord);
+        }
+        
+        return dashes;
+    }
+ 
+    public static String getUserGuess(String dashes){
+        String userGuess = JOptionPane.showInputDialog(dashes);
+        return userGuess;
+    }
 }
