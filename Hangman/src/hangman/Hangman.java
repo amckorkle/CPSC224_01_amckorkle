@@ -22,7 +22,7 @@ public class Hangman {
         String userGuess;
         String dashes = "";
         
-        if(userChoice == 1){
+        if(isOne(userChoice)){
             String randomWord = chooseWordRandomly();
             System.out.println(randomWord);
             dashes = initializeDashes(randomWord);
@@ -30,7 +30,7 @@ public class Hangman {
             secretWord = displayDashes(randomWord, userGuess, dashes);
             
         }
-        else if(userChoice == 2){
+        else if(isTwo(userChoice)){
             
         }
         else{
@@ -44,6 +44,14 @@ public class Hangman {
         String userOption = JOptionPane.showInputDialog("1. Play game from a randomly chosen word in a list \n 2. Play game from a word entered by another user \n 3. Exit Game");
         int userChoice = Integer.parseInt(userOption);
         return userChoice;
+    }
+    
+    public static boolean isOne(int userChoice){
+        return (userChoice == 1);
+    }
+    
+    public static boolean isTwo(int userChoice){
+        return (userChoice == 2);
     }
     
     public static void exitMessage(){
