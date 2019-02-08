@@ -89,6 +89,6 @@ public class Hangman {
  
     public static String getUserGuess(String dashes){
         String userGuess = JOptionPane.showInputDialog(dashes);
-        return userGuess;
+        return userGuess; //what
     }
 }
