@@ -105,6 +105,7 @@ public class Hangman {
         String displayString = "--- HANGMAN ---\n";
         displayString += "\n";
         displayString += makePerson(strikes);
+        displayString += "Strikes: " + strikes + ".\n";
         displayString += "\n";		
         displayString += getGuessedString(secretWord, guessedLetters);
         displayString += "\n";		
