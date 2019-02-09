@@ -48,7 +48,9 @@ public class Hangman {
 
         while(strikes < 6 && !isSolved(guessedLetters)){
             displayString = makeDisplayString(strikes, secretWord, guessedLetters); 
-            userGuess = JOptionPane.showInputDialog(displayString);
+
+            userGuess = getInputLetter(displayString);
+
             isCorrectGuess = checkGuess(secretWord, userGuess);
             if(!isCorrectGuess){
                 strikes++;
@@ -70,6 +72,15 @@ public class Hangman {
         return userChoice;
     }
     
+    public static String getInputLetter(String displayString){
+        String guess = JOptionPane.showInputDialog(displayString);
+        
+        while(guess.length() != 1 || !Character.isLetter(guess.charAt(0))){
+            guess = JOptionPane.showInputDialog(displayString + "\nInput must be a single letter.");
+        }
+        return guess;
+    }
+
     public static boolean isOne(int userChoice){
         return (userChoice == 1);
     }
