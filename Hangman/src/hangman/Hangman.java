@@ -32,17 +32,18 @@ public class Hangman {
                 
                 boolean[] guessedLetters = new boolean[randomWord.length()];
             
-                do{
-                    updateDisplayLetters(randomWord, userGuess, guessedLetters); 
+                do{ 
                     display = makeDisplayString(numberOfGuesses, randomWord, guessedLetters); 
                     userGuess = JOptionPane.showInputDialog(display);
                     correctGuess = checkGuess(randomWord, userGuess);
+                    updateDisplayLetters(randomWord, userGuess, guessedLetters);
                     if(!correctGuess){
                         numberOfGuesses++;
                     }
                 }while(numberOfGuesses < 6 && !isSolved(guessedLetters, randomWord));
+                
                 if(isSolved(guessedLetters, randomWord)){
-                    System.out.println("You win!");
+                    JOptionPane.showMessageDialog(null, "The word was: " + randomWord + "\n You won!");
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "The word was: " + randomWord + "\n" + makePerson(numberOfGuesses) + "Sorry you lost");
@@ -53,21 +54,20 @@ public class Hangman {
             
              boolean[] guessedLetters = new boolean[userWord.length()];
             
-                do{
-                    updateDisplayLetters(userWord, userGuess, guessedLetters); 
+                do{ 
                     display = makeDisplayString(numberOfGuesses, userWord, guessedLetters); 
                     userGuess = JOptionPane.showInputDialog(display);
                     correctGuess = checkGuess(userWord, userGuess);
+                    updateDisplayLetters(userWord, userGuess, guessedLetters);
                     if(!correctGuess){
                         numberOfGuesses++;
                     }
                 }while(numberOfGuesses < 6 && !isSolved(guessedLetters, userWord));
                 if(isSolved(guessedLetters, userWord)){
-                    System.out.println("You win!");
+                    JOptionPane.showMessageDialog(null, "The word was: " + userWord + "\n You won!");
                 }
-                else{
-                    display = makeDisplayString(numberOfGuesses, userWord, guessedLetters); 
-                    JOptionPane.showMessageDialog(null, display + "Sorry you lost");
+                else{ 
+                    JOptionPane.showMessageDialog(null, "The word was: " + userWord + "\n" + makePerson(numberOfGuesses) + "Sorry you lost");
                 }
         }
         else{
