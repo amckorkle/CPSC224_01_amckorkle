@@ -28,11 +28,12 @@ public class Hangman {
         
         if(isOne(userChoice)){
                 String randomWord = chooseWordRandomly();
-                boolean[] guessedLetters = new boolean[randomWord.length()];
                 System.out.println(randomWord);
+                boolean[] guessedLetters = new boolean[randomWord.length()];
                 while(!isSolved(guessedLetters, randomWord)){
+                    updateDisplayLetters(randomWord, userGuess, guessedLetters);
                     display = makeDisplayString(numberOfGuesses, randomWord, guessedLetters); 
-                    output = JOptionPane.showInputDialog(display);
+                    userGuess = JOptionPane.showInputDialog(display);
                 }
         }
         else if(isTwo(userChoice)){
@@ -71,11 +72,6 @@ public class Hangman {
         String randomWord = words[index];
         return randomWord;
     }
-    
-    public static String getUserGuess(String dashes){
-        String userGuess = JOptionPane.showInputDialog(dashes);
-        return userGuess; 
-	}
 	
 	public static String makeDisplayString(int numberOfGuesses, String secretWord, boolean[] guessedLetters){
 		String displayString = "--- HANGMAN ---\n";
@@ -122,15 +118,15 @@ public class Hangman {
 		return newStr;
 	}
         
-        public static 
+       // public static 
 
 	public static String getGuessedString(String secretWord, boolean[] guessedLetters){
 		String displayString = "";
-
+                
+                
 		for(int i = 0; i < secretWord.length(); i++){
 			if(guessedLetters[i]){
 				displayString += secretWord.charAt(i);
-
 			} else {
 				displayString += "-";
 			}
@@ -138,6 +134,21 @@ public class Hangman {
 
 		return displayString;
 	}
+        
+        public static void updateDisplayLetters(String secretWord, String userGuess, boolean[] guessedLetters){
+            
+            
+            for(int i = 0; i < secretWord.length(); i++){
+                if(!guessedLetters[i]){
+                    if(secretWord.charAt(i) == userGuess.charAt(0)){
+                        guessedLetters[i] = true;
+                    }
+                    else{
+                        guessedLetters[i] = false;
+                    }
+                }
+            }
+        }
 
 
     
