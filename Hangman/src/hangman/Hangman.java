@@ -17,64 +17,52 @@ public class Hangman {
      */
     public static void main(String[] args) {
         int userChoice = menu();
-        String secretWord = "";
+        /*
         String display;
         String output;
         boolean correctGuess = true;
         int numberOfGuesses = 0;
         String userGuess = " "; 
         String dashes;
-        int strikes = 0;
-        int round = 1;
-        
+        */
         if(isOne(userChoice)){
-                String randomWord = chooseWordRandomly();
-                
-                boolean[] guessedLetters = new boolean[randomWord.length()];
-            
-                do{
-                    updateDisplayLetters(randomWord, userGuess, guessedLetters); 
-                    display = makeDisplayString(numberOfGuesses, randomWord, guessedLetters); 
-                    userGuess = JOptionPane.showInputDialog(display);
-                    correctGuess = checkGuess(randomWord, userGuess);
-                    if(!correctGuess){
-                        numberOfGuesses++;
-                    }
-                }while(numberOfGuesses < 6 && !isSolved(guessedLetters, randomWord));
-                if(isSolved(guessedLetters, randomWord)){
-                    System.out.println("You win!");
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "The word was: " + randomWord + "\n" + makePerson(numberOfGuesses) + "Sorry you lost");
-                }
+            String randomWord = chooseWordRandomly();
+            mainGameplayLoop(randomWord);    
         }
         else if(isTwo(userChoice)){
             String userWord = inputUserWord();
-            
-             boolean[] guessedLetters = new boolean[userWord.length()];
-            
-                do{
-                    updateDisplayLetters(userWord, userGuess, guessedLetters); 
-                    display = makeDisplayString(numberOfGuesses, userWord, guessedLetters); 
-                    userGuess = JOptionPane.showInputDialog(display);
-                    correctGuess = checkGuess(userWord, userGuess);
-                    if(!correctGuess){
-                        numberOfGuesses++;
-                    }
-                }while(numberOfGuesses < 6 && !isSolved(guessedLetters, userWord));
-                if(isSolved(guessedLetters, userWord)){
-                    System.out.println("You win!");
-                }
-                else{
-                    display = makeDisplayString(numberOfGuesses, userWord, guessedLetters); 
-                    JOptionPane.showMessageDialog(null, display + "Sorry you lost");
-                }
+            mainGameplayLoop(userWord);
         }
         else{
             exitMessage();
         }
         
         System.exit(0);
+    }
+    
+    public static void mainGameplayLoop(String secretWord){
+        boolean[] guessedLetters = new boolean[secretWord.length()];
+        int strikes = 0;
+        String displayString, userGuess = " ";
+        boolean isCorrectGuess;
+
+        while(strikes < 6 && !isSolved(guessedLetters)){
+            displayString = makeDisplayString(strikes, secretWord, guessedLetters); 
+            userGuess = JOptionPane.showInputDialog(displayString);
+            isCorrectGuess = checkGuess(secretWord, userGuess);
+            if(!isCorrectGuess){
+                strikes++;
+            } else {
+                updateGuessedLetters(secretWord, userGuess, guessedLetters);                 
+            }
+        }
+
+        if(isSolved(guessedLetters)){
+            System.out.println("You win!");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "The word was: " + secretWord + "\n" + makePerson(strikes) + "Sorry you lost");
+        }
     }
     
     public static int menu(){
@@ -102,101 +90,81 @@ public class Hangman {
         String randomWord = words[index];
         return randomWord;
     }
-	
-	public static String makeDisplayString(int numberOfGuesses, String secretWord, boolean[] guessedLetters){
-		String displayString = "--- HANGMAN ---\n";
-		displayString += "\n";
-		displayString += makePerson(numberOfGuesses);
-		displayString += "\n";		
-		displayString += getGuessedString(secretWord, guessedLetters);
-		displayString += "\n";		
-		displayString += "\nGuess another letter.";
-		return displayString;
-	}
+    
+    public static String makeDisplayString(int strikes, String secretWord, boolean[] guessedLetters){
+        String displayString = "--- HANGMAN ---\n";
+        displayString += "\n";
+        displayString += makePerson(strikes);
+        displayString += "\n";		
+        displayString += getGuessedString(secretWord, guessedLetters);
+        displayString += "\n";		
+        displayString += "\nGuess another letter.";
+        return displayString;
+    }
         
-        public static boolean checkGuess(String randomWord, String userGuess){
-            if(randomWord.contains(userGuess)){
-                return true;
-            }
-            else {
-                return false;
+    public static boolean checkGuess(String randomWord, String userGuess){
+        return randomWord.contains(userGuess);
+    }
+
+    public static String makePerson(int strikes){
+        String person = "     \n     \n     \n";
+        switch(strikes){
+            case 6:
+                person = replaceChar(person, 15, '\\');
+                person = replaceChar(person, 16, '_');
+            case 5:
+                person = replaceChar(person, 12, '_');
+                person = replaceChar(person, 13, '/');
+            case 4:
+                person = replaceChar(person, 9, '-');
+                person = replaceChar(person, 10, '-');
+            case 3:
+                person = replaceChar(person, 6, '-');
+                person = replaceChar(person, 7, '-');
+            case 2:
+                person = replaceChar(person, 8, '|');
+            case 1:
+                person = replaceChar(person, 1, 'O');
+                break;
+        }
+        return person;
+    }
+
+    public static String replaceChar(String str, int index, char newChar){
+        String newStr = str.substring(0, index) + newChar + str.substring(index + 1);
+        return newStr;
+    }
+        
+
+    public static String getGuessedString(String secretWord, boolean[] guessedLetters){
+        String displayString = "";
+                
+        for(int i = 0; i < secretWord.length(); i++){
+            if(guessedLetters[i]){
+                displayString += secretWord.charAt(i);
+            } else {
+                displayString += "-";
             }
         }
 
-	public static String makePerson(int numberOfGuesses){
-		String person = "     \n     \n     \n";
-		switch(numberOfGuesses){
-			case 6:
-				person = replaceChar(person, 15, '\\');
-				person = replaceChar(person, 16, '_');
-			case 5:
-				person = replaceChar(person, 12, '_');
-				person = replaceChar(person, 13, '/');
-			case 4:
-				person = replaceChar(person, 9, '-');
-				person = replaceChar(person, 10, '-');
-			case 3:
-				person = replaceChar(person, 6, '-');
-				person = replaceChar(person, 7, '-');
-			case 2:
-				person = replaceChar(person, 8, '|');
-			case 1:
-				person = replaceChar(person, 1, 'O');
-				break;
-		}
-		/*
-			  O
-			--|--
-			_/ \_
-		*/
-		return person;
-	}
-
-	public static String replaceChar(String str, int index, char newChar){
-		String newStr = str.substring(0, index) + newChar + str.substring(index + 1);
-		return newStr;
-	}
+        return displayString;
+    }
         
-       // public static 
-
-	public static String getGuessedString(String secretWord, boolean[] guessedLetters){
-		String displayString = "";
-                
-                
-		for(int i = 0; i < secretWord.length(); i++){
-			if(guessedLetters[i]){
-				displayString += secretWord.charAt(i);
-			} else {
-				displayString += "-";
-			}
-		}
-
-		return displayString;
-	}
-        
-        public static void updateDisplayLetters(String secretWord, String userGuess, boolean[] guessedLetters){
-            
-            for(int i = 0; i < secretWord.length(); i++){
-                if(!guessedLetters[i]){
-                    if(secretWord.charAt(i) != userGuess.charAt(0)){
-                        guessedLetters[i] = false;
-                    }
-                    else{
-                        guessedLetters[i] = true;
-                    }
-                }
+    public static void updateGuessedLetters(String secretWord, String userGuess, boolean[] guessedLetters){
+        for(int i = 0; i < secretWord.length(); i++){
+            if(secretWord.charAt(i) == userGuess.charAt(0)){
+                guessedLetters[i] = true;
             }
         }
-
-
+    }
     
     public static String inputUserWord(){
         String userWord = JOptionPane.showInputDialog("Please enter a word");
         return userWord;
     }
     
-    public static boolean isSolved(boolean[] guessedLetters, String word){
-        for(int i = 0; i < word.length(); i++){
+    public static boolean isSolved(boolean[] guessedLetters){
+        for(int i = 0; i < guessedLetters.length; i++){
             if(!guessedLetters[i]){
                 return false;
             }
