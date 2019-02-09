@@ -31,7 +31,11 @@ public class Hangman {
             
         }
         else if(isTwo(userChoice)){
-            
+            String userWord = inputUserWord();
+            System.out.println(userWord);
+            dashes = displayDashes(userWord, userGuess);
+            userGuess = getUserGuess(dashes);
+            secretWord = displayDashes(userWord, userGuess);
         }
         else{
             exitMessage();
@@ -59,7 +63,7 @@ public class Hangman {
     }
     
     public static String chooseWordRandomly(){
-        String[] words = {"Smoothie", "Teeth", "Dog", "Food", "Homework", "Math", "Zebra", "Penguin"};
+        String[] words = {"smoothie", "teeth", "dog", "food", "homework", "math", "zebra", "penguin"};
         Random rand = new Random();
         int index = rand.nextInt(words.length);
         String randomWord = words[index];
@@ -101,6 +105,10 @@ public class Hangman {
         return userGuess;
     }
     
+    public static String inputUserWord(){
+        String userWord = JOptionPane.showInputDialog("Please enter a word");
+        return userWord;
+    }
     /**
      * menu
      * choose a word
