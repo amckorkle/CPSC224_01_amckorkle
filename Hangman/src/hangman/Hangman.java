@@ -16,9 +16,9 @@ public class Hangman {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         int userChoice = menu();
         String secretWord;
+		int numberOfGuesses = 0;
         String userGuess = " ";
         String dashes;
         int strikes = 0;
@@ -109,8 +109,67 @@ public class Hangman {
     
     public static String getUserGuess(String dashes){
         String userGuess = JOptionPane.showInputDialog(dashes);
-        return userGuess;
-    }
+        return userGuess; //what
+	}
+	
+	public static String makeDisplayString(int numberOfGuesses, String secretWord, boolean[] guessedLetters){
+		String displayString = "--- HANGMAN ---\n";
+		displayString += makePerson(numberOfGuesses);
+		displayString += getGuessedString(secretWord, guessedLetters);
+		displayString += "\nGuess another letter.";
+		return displayString;
+	}
+
+	public static String makePerson(int numberOfGuesses){
+		String person = "     \n     \n     \n";
+		switch(numberOfGuesses){
+			case 6:
+				person = replaceChar(person, 15, '\\');
+				person = replaceChar(person, 16, '_');
+			case 5:
+				person = replaceChar(person, 12, '_');
+				person = replaceChar(person, 13, '/');
+			case 4:
+				person = replaceChar(person, 9, '-');
+				person = replaceChar(person, 10, '-');
+			case 3:
+				person = replaceChar(person, 6, '-');
+				person = replaceChar(person, 7, '-');
+			case 2:
+				person = replaceChar(person, 8, '|');
+			case 1:
+				person = replaceChar(person, 2, 'O');
+				break;
+		}
+		/*
+			  O
+			--|--
+			_/ \_
+		*/
+		return person;
+	}
+
+	public static String replaceChar(String str, int index, char newChar){
+		String newStr = str.substring(0, index) + newChar + str.substring(index + 1);
+		return newStr;
+	}
+
+	public static String getGuessedString(String secretWord, boolean[] guessedLetters){
+		String displayString = "";
+
+		for(int i = 0; i < secretWord.length(); i++){
+			if(guessedLetters[i]){
+				displayString += secretWord.charAt(i);
+
+			} else {
+				displayString += "-";
+			}
+		}
+
+		return displayString;
+	}
+
+
     
     public static String inputUserWord(){
         String userWord = JOptionPane.showInputDialog("Please enter a word");
