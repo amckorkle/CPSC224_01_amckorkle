@@ -112,8 +112,8 @@ public class Hangman {
         return displayString;
     }
         
-    public static boolean checkGuess(String randomWord, String userGuess){
-        return randomWord.contains(userGuess);
+    public static boolean checkGuess(String secretWord, String userGuess){
+        return secretWord.toLowerCase().contains(userGuess.toLowerCase());
     }
 
     public static String makePerson(int strikes){
@@ -162,15 +162,27 @@ public class Hangman {
         
     public static void updateGuessedLetters(String secretWord, String userGuess, boolean[] guessedLetters){
         for(int i = 0; i < secretWord.length(); i++){
-            if(secretWord.charAt(i) == userGuess.charAt(0)){
+            if(secretWord.toLowerCase().charAt(i) == userGuess.toLowerCase().charAt(0)){
                 guessedLetters[i] = true;
             }
         }
     }
     
     public static String inputUserWord(){
-        String userWord = JOptionPane.showInputDialog("Please enter a word");
+        String userWord = JOptionPane.showInputDialog("Please enter a word.");
+        while(!isOnlyLetters(userWord)){
+            userWord = JOptionPane.showInputDialog("Please enter a new word. It must only be one word.");
+        }
         return userWord;
+    }
+
+    public static boolean isOnlyLetters(String str){
+        for(int i = 0; i < str.length(); i++){
+            if(!Character.isLetter(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
     }
     
     public static boolean isSolved(boolean[] guessedLetters){
