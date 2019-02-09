@@ -79,8 +79,11 @@ public class Hangman {
 	
 	public static String makeDisplayString(int numberOfGuesses, String secretWord, boolean[] guessedLetters){
 		String displayString = "--- HANGMAN ---\n";
+		displayString += "\n";
 		displayString += makePerson(numberOfGuesses);
+		displayString += "\n";		
 		displayString += getGuessedString(secretWord, guessedLetters);
+		displayString += "\n";		
 		displayString += "\nGuess another letter.";
 		return displayString;
 	}
@@ -103,7 +106,7 @@ public class Hangman {
 			case 2:
 				person = replaceChar(person, 8, '|');
 			case 1:
-				person = replaceChar(person, 2, 'O');
+				person = replaceChar(person, 1, 'O');
 				break;
 		}
 		/*
