@@ -17,8 +17,10 @@ public class Hangman {
      */
     public static void main(String[] args) {
         int userChoice = menu();
-        String secretWord;
-		int numberOfGuesses = 0;
+        String secretWord = "";
+        String display;
+        String output;
+        int numberOfGuesses = 0;
         String userGuess = " ";
         String dashes;
         int strikes = 0;
@@ -26,21 +28,16 @@ public class Hangman {
         
         if(isOne(userChoice)){
                 String randomWord = chooseWordRandomly();
+                boolean[] guessedLetters = new boolean[randomWord.length()];
                 System.out.println(randomWord);
-                boolean[] displayDashes = new boolean[randomWord.length()];
-            while (!isSolved(displayDashes, randomWord)) {
-                dashes = displayDashes(randomWord, userGuess, round, displayDashes);
-                userGuess = getUserGuess(dashes);
-                //secretWord = displayDashes(randomWord, userGuess, round, displayDashes);
-                round++;
-            }  
+                while(!isSolved(guessedLetters, randomWord)){
+                    display = makeDisplayString(numberOfGuesses, randomWord, guessedLetters); 
+                    output = JOptionPane.showInputDialog(display);
+                }
         }
         else if(isTwo(userChoice)){
             String userWord = inputUserWord();
             System.out.println(userWord);
-            //dashes = displayDashes(userWord, userGuess, round, displayDashes);
-            //userGuess = getUserGuess(dashes);
-            //secretWord = displayDashes(userWord, userGuess, round, displayDashes);
         }
         else{
             exitMessage();
@@ -75,41 +72,9 @@ public class Hangman {
         return randomWord;
     }
     
-    public static String displayDashes(String randomWord, String userGuess, int round, boolean[] displayDashes){
-        char[] mysteryWord = new char[randomWord.length()];
-        //boolean[] displayDashes = new boolean[randomWord.length()];
-        String dashes = "";
-        
-        if(round == 1){
-            for(int i = 0; i < randomWord.length(); i++){
-                displayDashes[i] = false;
-            }
-        }
-        
-        for(int j = 0; j < randomWord.length(); j++){
-            if(!displayDashes[j]){
-                if(userGuess.charAt(0) == randomWord.charAt(j)){
-                    mysteryWord[j] = userGuess.charAt(0);
-                    displayDashes[j] = true;
-                }
-                else{
-                    displayDashes[j] = false;
-                    mysteryWord[j] = '-';
-                }
-            }
-            else{
-                //displayDashes[j] = false;
-                mysteryWord[j] = '-';
-            }
-            dashes = String.valueOf(mysteryWord);
-        }
-        JOptionPane.showMessageDialog(null, dashes);
-        return dashes;
-    }
-    
     public static String getUserGuess(String dashes){
         String userGuess = JOptionPane.showInputDialog(dashes);
-        return userGuess; //what
+        return userGuess; 
 	}
 	
 	public static String makeDisplayString(int numberOfGuesses, String secretWord, boolean[] guessedLetters){
@@ -153,6 +118,8 @@ public class Hangman {
 		String newStr = str.substring(0, index) + newChar + str.substring(index + 1);
 		return newStr;
 	}
+        
+        public static 
 
 	public static String getGuessedString(String secretWord, boolean[] guessedLetters){
 		String displayString = "";
