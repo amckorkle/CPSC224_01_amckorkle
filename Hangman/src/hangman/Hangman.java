@@ -20,25 +20,55 @@ public class Hangman {
         String secretWord = "";
         String display;
         String output;
+        boolean correctGuess = true;
         int numberOfGuesses = 0;
-        String userGuess = " ";
+        String userGuess = " "; 
         String dashes;
         int strikes = 0;
         int round = 1;
         
         if(isOne(userChoice)){
                 String randomWord = chooseWordRandomly();
-                System.out.println(randomWord);
+                
                 boolean[] guessedLetters = new boolean[randomWord.length()];
-                while(!isSolved(guessedLetters, randomWord)){
-                    updateDisplayLetters(randomWord, userGuess, guessedLetters);
+            
+                do{
+                    updateDisplayLetters(randomWord, userGuess, guessedLetters); 
                     display = makeDisplayString(numberOfGuesses, randomWord, guessedLetters); 
                     userGuess = JOptionPane.showInputDialog(display);
+                    correctGuess = checkGuess(randomWord, userGuess);
+                    if(!correctGuess){
+                        numberOfGuesses++;
+                    }
+                }while(numberOfGuesses < 6 && !isSolved(guessedLetters, randomWord));
+                if(isSolved(guessedLetters, randomWord)){
+                    System.out.println("You win!");
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "The word was: " + randomWord + "\n" + makePerson(numberOfGuesses) + "Sorry you lost");
                 }
         }
         else if(isTwo(userChoice)){
             String userWord = inputUserWord();
-            System.out.println(userWord);
+            
+             boolean[] guessedLetters = new boolean[userWord.length()];
+            
+                do{
+                    updateDisplayLetters(userWord, userGuess, guessedLetters); 
+                    display = makeDisplayString(numberOfGuesses, userWord, guessedLetters); 
+                    userGuess = JOptionPane.showInputDialog(display);
+                    correctGuess = checkGuess(userWord, userGuess);
+                    if(!correctGuess){
+                        numberOfGuesses++;
+                    }
+                }while(numberOfGuesses < 6 && !isSolved(guessedLetters, userWord));
+                if(isSolved(guessedLetters, userWord)){
+                    System.out.println("You win!");
+                }
+                else{
+                    display = makeDisplayString(numberOfGuesses, userWord, guessedLetters); 
+                    JOptionPane.showMessageDialog(null, display + "Sorry you lost");
+                }
         }
         else{
             exitMessage();
@@ -83,6 +113,15 @@ public class Hangman {
 		displayString += "\nGuess another letter.";
 		return displayString;
 	}
+        
+        public static boolean checkGuess(String randomWord, String userGuess){
+            if(randomWord.contains(userGuess)){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
 
 	public static String makePerson(int numberOfGuesses){
 		String person = "     \n     \n     \n";
@@ -137,14 +176,13 @@ public class Hangman {
         
         public static void updateDisplayLetters(String secretWord, String userGuess, boolean[] guessedLetters){
             
-            
             for(int i = 0; i < secretWord.length(); i++){
                 if(!guessedLetters[i]){
-                    if(secretWord.charAt(i) == userGuess.charAt(0)){
-                        guessedLetters[i] = true;
+                    if(secretWord.charAt(i) != userGuess.charAt(0)){
+                        guessedLetters[i] = false;
                     }
                     else{
-                        guessedLetters[i] = false;
+                        guessedLetters[i] = true;
                     }
                 }
             }
@@ -157,9 +195,9 @@ public class Hangman {
         return userWord;
     }
     
-    public static boolean isSolved(boolean[] displayDashes, String word){
+    public static boolean isSolved(boolean[] guessedLetters, String word){
         for(int i = 0; i < word.length(); i++){
-            if(!displayDashes[i]){
+            if(!guessedLetters[i]){
                 return false;
             }
         }
