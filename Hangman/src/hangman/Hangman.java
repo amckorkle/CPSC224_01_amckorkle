@@ -58,8 +58,7 @@ public class Hangman {
         }
 
         if(isSolved(guessedLetters)){
-            System.out.println("You win!");
-        }
+            JOptionPane.showMessageDialog(null, "The word was: " + secretWord + "\n You won!");        }
         else{
             JOptionPane.showMessageDialog(null, "The word was: " + secretWord + "\n" + makePerson(strikes) + "Sorry you lost");
         }
