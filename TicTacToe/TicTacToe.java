@@ -5,8 +5,10 @@
  */
 
 /**
- *
- * @author aylam
+ * Assignment 3
+ * Due Date: 2/22/19
+ * Authors: Ayla McKorkle and Kasey Davis
+ * Github: amckorkle
  */
 
 import javax.swing.*;
@@ -21,8 +23,44 @@ public class TicTacToe extends JFrame{
 	int p2Wins = 0;
 	int p2Losses = 0;
 	char[][] board = new char[3][3];
+        private final int WINDOW_WIDTH = 500;
+        private final int WINDOW_HEIGHT = 500;
+        private JButton newGame;
+        private JButton reset;
+        private JButton exit;
+        private JButton upperLeft;
+        private JButton upperCenter;
+        private JButton upperRight;
+        private JButton middleLeft;
+        private JButton middleCenter;
+        private JButton middleRight;
+        private JButton lowerLeft;
+        private JButton lowerCenter;
+        private JButton lowerRight;
+        private JLabel messageLabel;
+        private JTextField player1;
+        private JTextField player2;
+        
+        public TicTacToe(){
+            setTitle("Tic Tac Toe");
+            
+            setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+            
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
+            setLayout(new BorderLayout());
+            
+            messageLabel = new JLabel("Welcome to Tic-Tac-Toe!");
+            add(messageLabel, BorderLayout.SOUTH);
+            
+            setVisible(true);
+              
+        }
+        
 
+        
 	public static void main(String[] args){
-		
+            new TicTacToe();
 	}
+
 }
