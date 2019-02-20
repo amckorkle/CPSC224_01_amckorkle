@@ -17,6 +17,12 @@ import java.awt.event.*;
 
 
 public class TicTacToe extends JFrame{
+	/*
+	To-do:
+	Make a Makefile
+	Do we need a UML diagram?
+	Remove testing functions before uploading
+	*/
 	String p1Name, p2Name;
 	int p1Wins = 0;
 	int p1Losses = 0;
@@ -25,7 +31,7 @@ public class TicTacToe extends JFrame{
 	char[][] board = new char[3][3];
 	static char X = 'X';
 	static char O = 'O';
-	static char N = '\0';
+	static char EMPTY = '\0';
 	private final int WINDOW_WIDTH = 500;
 	private final int WINDOW_HEIGHT = 500;
 	private JButton newGame;
@@ -63,7 +69,7 @@ public class TicTacToe extends JFrame{
 
         
 	public static void main(String[] args){
-		TicTacToe ttt = new TicTacToe();
+		new TicTacToe();
 	}
 
 
@@ -117,6 +123,19 @@ public class TicTacToe extends JFrame{
 		}
 	}
 
+	private void clearBoard(){
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; i++){
+				board[i][j] = EMPTY;
+			}
+		}
+	}
+
+	private void placeSymbol(int col, int row, char symbol){
+		board[row][col] = symbol;
+	}
+
+	// Function is for testing purposes only
 	private void setBoard(char s1, char s2, char s3, char s4, char s5, char s6, char s7, char s8, char s9){
 		board[0][0] = s1;
 		board[0][1] = s2;
@@ -129,33 +148,34 @@ public class TicTacToe extends JFrame{
 		board[2][2] = s9;
 	}
 
+	// Function is for testing purposes only
 	private boolean isWinnerTest(){
-		setBoard(N, N, N, N, N, N, N, N, N);
+		setBoard(EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY);
 		if(isWinner() != -1){
 			return false;
 		}
 
-		setBoard(O, X, N, O, O, O, N, N, N);
+		setBoard(O, X, EMPTY, O, O, O, EMPTY, EMPTY, EMPTY);
 		if(isWinner() != 2){
 			return false;
 		}
 
-		setBoard(X, N, N, N, X, N, N, N, X);
+		setBoard(X, EMPTY, EMPTY, EMPTY, X, EMPTY, EMPTY, EMPTY, X);
 		if(isWinner() != 1){
 			return false;
 		}
 
-		setBoard(X, N, O, X, N, O, X, O, N);
+		setBoard(X, EMPTY, O, X, EMPTY, O, X, O, EMPTY);
 		if(isWinner() != 1){
 			return false;
 		}
 
-		setBoard(X, N, N, N, X, N, O, O, O);
+		setBoard(X, EMPTY, EMPTY, EMPTY, X, EMPTY, O, O, O);
 		if(isWinner() != 2){
 			return false;
 		}
 
-		setBoard(X, X, O, N, O, N, O, X, N);
+		setBoard(X, X, O, EMPTY, O, EMPTY, O, X, EMPTY);
 		if(isWinner() != -1){
 			return false;
 		}
