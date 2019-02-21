@@ -34,24 +34,13 @@ public class TicTacToe extends JFrame{
 	static char EMPTY = '\0';
 	private final int WINDOW_WIDTH = 500;
 	private final int WINDOW_HEIGHT = 500;
-	private JButton newGame;
-	private JButton reset;
-	private JButton exit;
-	private JButton upperLeft;
-	private JButton upperCenter;
-	private JButton upperRight;
-	private JButton middleLeft;
-	private JButton middleCenter;
-	private JButton middleRight;
-	private JButton lowerLeft;
-	private JButton lowerCenter;
-	private JButton lowerRight;
-	private JLabel messageLabel;
-	private JTextField player1;
-	private JTextField player2;
-        
-
-           // setLayout(new GridLayout(3,3));
+	private GridPanel gameBoard;
+	private GameInfoPanel gameLabel;
+        private buildButtonPanel exitButton;
+	//private JTextField player1;
+	//private JTextField player2;
+        private JPanel centerPanel;
+        private BuildPlayerStatsPanel player1;
 
         
 	public TicTacToe(){
@@ -61,14 +50,33 @@ public class TicTacToe extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setLayout(new BorderLayout());
+                setLayout(new BorderLayout());
+                
+                centerPanel = new JPanel(new BorderLayout());
+                
+                gameLabel = new GameInfoPanel();
+                gameBoard = new GridPanel();
+                exitButton = new buildButtonPanel();
+                player1 = new BuildPlayerStatsPanel();
 		
-		messageLabel = new JLabel("Welcome to Tic-Tac-Toe!");
-		add(messageLabel, BorderLayout.SOUTH);
+                centerPanel.add(gameBoard, BorderLayout.CENTER);
+                centerPanel.add(exitButton, BorderLayout.SOUTH);
+                
+                add(centerPanel, BorderLayout.CENTER);
+                add(gameLabel, BorderLayout.SOUTH);
+                add(player1, BorderLayout.NORTH);
+                
+                
+                //pack();
 		
 		setVisible(true);
 			
 	}
+        
+        
+        private void buildGridPanel() {
+            
+        }
  
 	public static void main(String[] args){
 		new TicTacToe();
@@ -183,6 +191,5 @@ public class TicTacToe extends JFrame{
 		}
 		return true;
 	}
-
-
 }
+
