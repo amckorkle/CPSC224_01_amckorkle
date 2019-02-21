@@ -48,12 +48,29 @@ public class TicTacToe extends JFrame{
             
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
-            setLayout(new BorderLayout());
+             setLayout(new BorderLayout());
+            
+           // setLayout(new GridLayout(3,3));
             
             messageLabel = new JLabel("Welcome to Tic-Tac-Toe!");
+            
+            /*
+            upperLeft = new JButton();
+            upperCenter = new JButton();
+            upperRight = new JButton();
+            middleLeft = new JButton();
+            middleCenter = new JButton();
+            middleRight = new JButton();
+            lowerLeft = new JButton();
+            lowerCenter = new JButton();
+            lowerRight = new JButton();
+            */
+            
             add(messageLabel, BorderLayout.SOUTH);
             
+            
             setVisible(true);
+            
               
         }
         
