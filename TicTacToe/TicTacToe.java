@@ -15,6 +15,71 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+public class TicTacToe extends JFrame {
+    /*
+     * To-do: Do we need a UML diagram?
+     */
+    Player player1 = new Player("icons/X.png");
+    Player player2 = new Player("icons/O.png");
+    Player[][] board = new Player[3][3];
+    private final int WINDOW_WIDTH = 500;
+    private final int WINDOW_HEIGHT = 500;
+    private GridPanel gameBoard;
+    private GameInfoPanel gameLabel;
+    private buildButtonPanel exitButton;
+    // private JTextField player1;
+    // private JTextField player2;
+    private JPanel centerPanel;
+    private BuildPlayerStatsPanel player1Panel;
+
+    public TicTacToe() {
+        setTitle("Tic Tac Toe");
+
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setLayout(new BorderLayout());
+
+        centerPanel = new JPanel(new BorderLayout());
+
+        gameLabel = new GameInfoPanel();
+        gameBoard = new GridPanel();
+        exitButton = new buildButtonPanel();
+        player1Panel = new BuildPlayerStatsPanel();
+
+        centerPanel.add(gameBoard, BorderLayout.CENTER);
+        centerPanel.add(exitButton, BorderLayout.SOUTH);
+
+        add(centerPanel, BorderLayout.CENTER);
+        add(gameLabel, BorderLayout.SOUTH);
+        add(player1Panel, BorderLayout.NORTH);
+
+        // pack();
+
+        setVisible(true);
+
+    }
+
+    private void buildGridPanel() {
+
+    }
+
+    public static void main(String[] args) {
+        new TicTacToe();
+    }
+
+    private Player winnerExists() {
+        // Check horizontals
+        for (int row = 0; row < board.length; row++) {
+            int idx = 1;
+            while (board[row][0] != null && board[row][0] == board[row][idx] && idx < 3) {
+                if (idx == 2) {
+                    return board[row][0];
+                }
+                idx++;
+            }
+        }
 
 public class TicTacToe extends JFrame{
 	/*
@@ -84,119 +149,19 @@ public class TicTacToe extends JFrame{
         private void buildGridPanel() {
             
         }
- 
-	public static void main(String[] args){
-		new TicTacToe();
-	}
+        
 
+        public void incrementLosses() {
+            losses++;
+        }
 
-	private int isWinner(){
-		// Check horizontals
-		for(int row = 0; row < board.length; row++){
-			int idx = 1;
-			while(board[row][0] != '\0' && board[row][0] == board[row][idx] && idx < 3){
-				if(idx == 2){
-					return getPlayerFromSymbol(board[row][0]);
-				}
-				idx++;
-			}
-		}
-		
-		// Check verticals
-		for(int col = 0; col < board.length; col++){
-			int idx = 1;
-			while(board[0][col] != '\0' && board[0][col] == board[idx][col] && idx < 3){
-				if(idx == 2){
-					return getPlayerFromSymbol(board[0][col]);
-				}
-				idx++;
-			}
-		}
+        public int getLosses() {
+            return losses;
+        }
 
-		// Check diagonals
-		int idx = 1;
-		while(board[0][0] != '\0' && board[0][0] == board[idx][idx] && idx < 3){
-			if(idx == 2){
-				return getPlayerFromSymbol(board[0][0]);
-			}
-			idx++;
-		}
+        public ImageIcon getSymbolIcon() {
+            return symbol;
+        }
 
-		while(board[2][2] != '\0' && board[2][2] == board[2-idx][2-idx] && idx < 3){
-			if(idx == 2){
-				return getPlayerFromSymbol(board[2][2]);
-			}
-			idx++;
-		}
-
-		return -1;
-	}
-
-	private int getPlayerFromSymbol(char symbol){
-		if(symbol == X){
-			return 1;
-		} else {
-			return 2;
-		}
-	}
-
-	private void clearBoard(){
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; i++){
-				board[i][j] = EMPTY;
-			}
-		}
-	}
-
-	private void placeSymbol(int col, int row, char symbol){
-		board[row][col] = symbol;
-	}
-
-	// Function is for testing purposes only
-	private void setBoard(char s1, char s2, char s3, char s4, char s5, char s6, char s7, char s8, char s9){
-		board[0][0] = s1;
-		board[0][1] = s2;
-		board[0][2] = s3;
-		board[1][0] = s4;
-		board[1][1] = s5;
-		board[1][2] = s6;
-		board[2][0] = s7;
-		board[2][1] = s8;
-		board[2][2] = s9;
-	}
-
-	// Function is for testing purposes only
-	private boolean isWinnerTest(){
-		setBoard(EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY);
-		if(isWinner() != -1){
-			return false;
-		}
-
-		setBoard(O, X, EMPTY, O, O, O, EMPTY, EMPTY, EMPTY);
-		if(isWinner() != 2){
-			return false;
-		}
-
-		setBoard(X, EMPTY, EMPTY, EMPTY, X, EMPTY, EMPTY, EMPTY, X);
-		if(isWinner() != 1){
-			return false;
-		}
-
-		setBoard(X, EMPTY, O, X, EMPTY, O, X, O, EMPTY);
-		if(isWinner() != 1){
-			return false;
-		}
-
-		setBoard(X, EMPTY, EMPTY, EMPTY, X, EMPTY, O, O, O);
-		if(isWinner() != 2){
-			return false;
-		}
-
-		setBoard(X, X, O, EMPTY, O, EMPTY, O, X, EMPTY);
-		if(isWinner() != -1){
-			return false;
-		}
-		return true;
-	}
+    }
 }
-
