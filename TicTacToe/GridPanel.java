@@ -22,31 +22,44 @@ public class GridPanel extends JPanel{
     private JButton middleRight;
     private JButton lowerLeft;
     private JButton lowerCenter;
-    private JButton lowerRight;
+	private JButton lowerRight;
+	private GameBoard board;
         
-    public GridPanel(){
-  
-        setLayout(new GridLayout(3,3));
-        
-        upperLeft = new JButton();
-        upperCenter = new JButton();
-        upperRight = new JButton();
-        middleLeft = new JButton();
-        middleCenter = new JButton();
-        middleRight = new JButton();
-        lowerLeft = new JButton();
-        lowerCenter = new JButton();
-        lowerRight = new JButton();
-        
-        add(upperLeft);
-        add(upperCenter);
-        add(upperRight);
-        add(middleLeft);
-        add(middleCenter);
-        add(middleRight);
-        add(lowerLeft);
-        add(lowerCenter);
-        add(lowerRight);
-        
-    }
+    public GridPanel(GameBoard board){
+		this.board = board;
+
+		setLayout(new GridLayout(3,3));
+		
+		
+		JButton[][] buttonGrid = new JButton[3][3];
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				buttonGrid[i][j] = new JButton();
+				buttonGrid[i][j].addActionListener(new ButtonClickListener(buttonGrid, board));
+				add(buttonGrid[i][j]);
+
+			}
+		}
+	}
+	
+	private class ButtonClickListener implements ActionListener {
+		JButton[][] buttonGrid;
+		GameBoard board;
+		public ButtonClickListener(JButton[][] buttonGrid, GameBoard board){
+			this.buttonGrid = buttonGrid;
+			this.board = board;
+		}
+		public void actionPerformed(ActionEvent e){
+			for(int i = 0; i < 3; i++){
+				for(int j = 0; j < 3; j++){
+					if(e.getSource() == buttonGrid[i][j]){
+						if(!board.isPlayerAt(i, j)){
+							board.handleGameplayEvent(i, j);
+							buttonGrid[i][j].setIcon(board.getIconAt(i, j));
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -5,6 +5,7 @@ public class GameBoard {
 	private Player[] playerList;
 	private int nextPlayerTurn = 0;
 	private int turnCount = 0;
+	
 	public GameBoard(Player[] players){
 		board = new Player[3][3];
 		playerList = players;
@@ -49,6 +50,7 @@ public class GameBoard {
 		}
 
 		nextPlayerTurn = 0;
+		turnCount = 0;
 	}
 
 	private void incrementNextPlayerTurn(){
@@ -56,7 +58,9 @@ public class GameBoard {
 		nextPlayerTurn %= playerList.length;
 	}
 
-
+	public boolean isPlayerAt(int row, int col){
+		return board[row][col] != null;
+	}
 
 	public Player winnerExists() {
         // Check horizontals

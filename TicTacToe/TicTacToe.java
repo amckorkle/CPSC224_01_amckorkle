@@ -21,7 +21,7 @@ public class TicTacToe extends JFrame {
      */
     Player player1 = new Player("icons/X.png");
     Player player2 = new Player("icons/O.png");
-    Player[][] board = new Player[3][3];
+    GameBoard board = new GameBoard(new Player[]{player1, player2});
     private final int WINDOW_WIDTH = 500;
     private final int WINDOW_HEIGHT = 500;
     private GridPanel gameBoard;
@@ -45,7 +45,7 @@ public class TicTacToe extends JFrame {
         upperPanel = new JPanel(new BorderLayout());
 
         gameLabel = new GameInfoPanel();
-        gameBoard = new GridPanel();
+        gameBoard = new GridPanel(board);
         exitButton = new buildButtonPanel();
         player1Panel = new BuildPlayerStatsPanel();
         player2Panel = new BuildPlayer2StatsPanel();

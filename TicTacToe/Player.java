@@ -38,4 +38,9 @@ public class Player {
 		return symbol;
 	}
 
+	public void reset(){
+		wins = 0;
+		losses = 0;
+	}
+
 }
