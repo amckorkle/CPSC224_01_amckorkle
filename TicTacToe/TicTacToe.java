@@ -19,19 +19,11 @@ import java.awt.event.*;
 public class TicTacToe extends JFrame{
 	/*
 	To-do:
-	Make a Makefile
 	Do we need a UML diagram?
-	Remove testing functions before uploading
 	*/
-	String p1Name, p2Name;
-	int p1Wins = 0;
-	int p1Losses = 0;
-	int p2Wins = 0;
-	int p2Losses = 0;
+	Player player1 = new Player('X');
+    Player player2 = new Player('O');
 	char[][] board = new char[3][3];
-	static char X = 'X';
-	static char O = 'O';
-	static char EMPTY = '\0';
 	private final int WINDOW_WIDTH = 500;
 	private final int WINDOW_HEIGHT = 500;
 	private GridPanel gameBoard;
@@ -40,7 +32,7 @@ public class TicTacToe extends JFrame{
 	//private JTextField player1;
 	//private JTextField player2;
         private JPanel centerPanel;
-        private BuildPlayerStatsPanel player1;
+        private BuildPlayerStatsPanel player1Panel;
 
         
 	public TicTacToe(){
@@ -57,14 +49,14 @@ public class TicTacToe extends JFrame{
                 gameLabel = new GameInfoPanel();
                 gameBoard = new GridPanel();
                 exitButton = new buildButtonPanel();
-                player1 = new BuildPlayerStatsPanel();
+                player1Panel = new BuildPlayerStatsPanel();
 		
                 centerPanel.add(gameBoard, BorderLayout.CENTER);
                 centerPanel.add(exitButton, BorderLayout.SOUTH);
                 
                 add(centerPanel, BorderLayout.CENTER);
                 add(gameLabel, BorderLayout.SOUTH);
-                add(player1, BorderLayout.NORTH);
+                add(player1Panel, BorderLayout.NORTH);
                 
                 
                 //pack();
@@ -82,8 +74,9 @@ public class TicTacToe extends JFrame{
 		new TicTacToe();
 	}
 
+    
 
-	private int isWinner(){
+	private Player winnerExists(){
 		// Check horizontals
 		for(int row = 0; row < board.length; row++){
 			int idx = 1;
@@ -122,21 +115,21 @@ public class TicTacToe extends JFrame{
 			idx++;
 		}
 
-		return -1;
+		return null;
 	}
 
-	private int getPlayerFromSymbol(char symbol){
-		if(symbol == X){
-			return 1;
+	private Player getPlayerFromSymbol(char symbol){
+		if(symbol == player1.symbol){
+			return player1;
 		} else {
-			return 2;
+			return player2;
 		}
 	}
 
 	private void clearBoard(){
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; i++){
-				board[i][j] = EMPTY;
+				board[i][j] = '\0';
 			}
 		}
 	}
@@ -145,51 +138,44 @@ public class TicTacToe extends JFrame{
 		board[row][col] = symbol;
 	}
 
-	// Function is for testing purposes only
-	private void setBoard(char s1, char s2, char s3, char s4, char s5, char s6, char s7, char s8, char s9){
-		board[0][0] = s1;
-		board[0][1] = s2;
-		board[0][2] = s3;
-		board[1][0] = s4;
-		board[1][1] = s5;
-		board[1][2] = s6;
-		board[2][0] = s7;
-		board[2][1] = s8;
-		board[2][2] = s9;
-	}
+	private class Player{
+        private char symbol;
+        private int wins = 0;
+        private int losses = 0;
+        private String name;
 
-	// Function is for testing purposes only
-	private boolean isWinnerTest(){
-		setBoard(EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY);
-		if(isWinner() != -1){
-			return false;
-		}
+        public Player(char Symbol){
+            symbol = Symbol;
+        }
 
-		setBoard(O, X, EMPTY, O, O, O, EMPTY, EMPTY, EMPTY);
-		if(isWinner() != 2){
-			return false;
-		}
+        public void setName(String newName){
+            name = newName;
+        }
 
-		setBoard(X, EMPTY, EMPTY, EMPTY, X, EMPTY, EMPTY, EMPTY, X);
-		if(isWinner() != 1){
-			return false;
-		}
+        public String getName(){
+            return name;
+        }
 
-		setBoard(X, EMPTY, O, X, EMPTY, O, X, O, EMPTY);
-		if(isWinner() != 1){
-			return false;
-		}
+        public void incrementWins(){
+            wins++;
+        }
 
-		setBoard(X, EMPTY, EMPTY, EMPTY, X, EMPTY, O, O, O);
-		if(isWinner() != 2){
-			return false;
-		}
+        public int getWins(){
+            return wins;
+        }
 
-		setBoard(X, X, O, EMPTY, O, EMPTY, O, X, EMPTY);
-		if(isWinner() != -1){
-			return false;
-		}
-		return true;
-	}
+        public void incrementLosses(){
+            losses++;
+        }
+
+        public int getLosses(){
+            return losses;
+        }
+
+        public char getSymbol(){
+            return symbol;
+        }
+
+    }
 }
 
