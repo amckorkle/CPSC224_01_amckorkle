@@ -27,10 +27,10 @@ public class TicTacToe extends JFrame {
     private GridPanel gameBoard;
     private GameInfoPanel gameLabel;
     private buildButtonPanel exitButton;
-    // private JTextField player1;
-    // private JTextField player2;
     private JPanel centerPanel;
     private BuildPlayerStatsPanel player1Panel;
+    private BuildPlayer2StatsPanel player2Panel;
+    private JPanel upperPanel;
 
     public TicTacToe() {
         setTitle("Tic Tac Toe");
@@ -42,18 +42,24 @@ public class TicTacToe extends JFrame {
         setLayout(new BorderLayout());
 
         centerPanel = new JPanel(new BorderLayout());
+        upperPanel = new JPanel(new BorderLayout());
 
         gameLabel = new GameInfoPanel();
         gameBoard = new GridPanel();
         exitButton = new buildButtonPanel();
         player1Panel = new BuildPlayerStatsPanel();
+        player2Panel = new BuildPlayer2StatsPanel();
 
         centerPanel.add(gameBoard, BorderLayout.CENTER);
         centerPanel.add(exitButton, BorderLayout.SOUTH);
+        
+        upperPanel.add(player1Panel, BorderLayout.WEST);
+        upperPanel.add(player2Panel, BorderLayout.EAST);
 
         add(centerPanel, BorderLayout.CENTER);
         add(gameLabel, BorderLayout.SOUTH);
-        add(player1Panel, BorderLayout.NORTH);
+        add(upperPanel, BorderLayout.NORTH);
+        
 
         // pack();
 
