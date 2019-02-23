@@ -47,7 +47,7 @@ public class TicTacToe extends JFrame {
         gameLabel = new GameInfoPanel();
 		gameBoardPanel = new GridPanel(board);
 		board.assignPanel(gameBoardPanel);
-        exitButton = new buildButtonPanel();
+        exitButton = new buildButtonPanel(board, player1);
         player1Panel = new PlayerStatsPanel(player1);
 		player2Panel = new PlayerStatsPanel(player2);
 		player1.assignPanel(player1Panel);

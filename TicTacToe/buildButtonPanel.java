@@ -16,19 +16,51 @@ public class buildButtonPanel extends JPanel {
     private JButton newGame;
     private JButton reset;
     private JButton exit;
+    private PlayerStatsPanel player1Name;
+    private GameBoard board;
+    private Player player;
     
-    public buildButtonPanel(){
-        
+    public buildButtonPanel(GameBoard board, Player player){
+        this.board = board;
+        this.player = player;
         
         exit = new JButton("Exit");
         exit.addActionListener(new ExitButtonListener());
         
+        reset = new JButton("Reset");
+        reset.addActionListener(new ResetButtonListener());
+        
+        newGame = new JButton("New Game");
+        newGame.addActionListener(new NewGameButtonListener());
+        
         add(exit);
+        add(reset);
+        add(newGame);
     }
     
     private class ExitButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
             System.exit(0);
         }
-}
+    }
+    
+    private class ResetButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            int userChoice = JOptionPane.showConfirmDialog(null, "This will end the game and set the win/loss stats to 0. Are you sure?", 
+                    null, JOptionPane.YES_NO_OPTION);
+            if(userChoice == JOptionPane.YES_OPTION){
+                board.reset();
+                player.reset();
+            }
+            
+        }
+    }
+    
+    private class NewGameButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            //if(player1Name.equals("")){
+                JOptionPane.showMessageDialog(null, "ErrorMsg", null, JOptionPane.ERROR_MESSAGE);
+            }
+        //}
+    }
 }
