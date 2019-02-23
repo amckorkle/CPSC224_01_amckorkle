@@ -16,7 +16,7 @@ public class buildButtonPanel extends JPanel {
     private JButton newGame;
     private JButton reset;
     private JButton exit;
-    private BuildPlayerStatsPanel player1Name;
+    private PlayerStatsPanel player1Name;
     private GameBoard board;
     private Player player;
     
@@ -50,7 +50,7 @@ public class buildButtonPanel extends JPanel {
                     null, JOptionPane.YES_NO_OPTION);
             if(userChoice == JOptionPane.YES_OPTION){
                 board.reset();
-                //player.reset();
+                player.reset();
             }
             
         }
@@ -58,7 +58,7 @@ public class buildButtonPanel extends JPanel {
     
     private class NewGameButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            //if(BuildPlayerStatsPanel.player1Name.isEmpty()){
+            //if(player1Name.equals("")){
                 JOptionPane.showMessageDialog(null, "ErrorMsg", null, JOptionPane.ERROR_MESSAGE);
             }
         //}

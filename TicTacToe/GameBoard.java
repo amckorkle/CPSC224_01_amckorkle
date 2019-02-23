@@ -5,7 +5,7 @@ public class GameBoard {
 	private Player[] playerList;
 	private int nextPlayerTurn = 0;
 	private int turnCount = 0;
-	
+
 	public GameBoard(Player[] players){
 		board = new Player[3][3];
 		playerList = players;
@@ -26,11 +26,18 @@ public class GameBoard {
 
 		Player winner = winnerExists();
 		if(winner != null){
-
+			winner.incrementWins();
+			for(Player player : playerList){
+				if(player != winner){
+					player.incrementLosses();
+				}
+			}
 		}
 
 		if(turnCount >= 9){
-			
+			for(Player player : playerList){
+				player.incrementLosses();
+			}
 		}
 	}
 

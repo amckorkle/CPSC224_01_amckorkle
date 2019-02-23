@@ -19,8 +19,8 @@ public class TicTacToe extends JFrame {
     /*
      * To-do: Do we need a UML diagram?
      */
-    Player player1 = new Player("icons/X.png");
-    Player player2 = new Player("icons/O.png");
+    Player player1 = new Player("icons/X.png", "Player 1");
+    Player player2 = new Player("icons/O.png", "Player 2");
     GameBoard board = new GameBoard(new Player[]{player1, player2});
     private final int WINDOW_WIDTH = 500;
     private final int WINDOW_HEIGHT = 500;
@@ -28,8 +28,8 @@ public class TicTacToe extends JFrame {
     private GameInfoPanel gameLabel;
     private buildButtonPanel exitButton;
     private JPanel centerPanel;
-    private BuildPlayerStatsPanel player1Panel;
-    private BuildPlayer2StatsPanel player2Panel;
+    private PlayerStatsPanel player1Panel;
+    private PlayerStatsPanel player2Panel;
     private JPanel upperPanel;
 
     public TicTacToe() {
@@ -47,8 +47,10 @@ public class TicTacToe extends JFrame {
         gameLabel = new GameInfoPanel();
         gameBoard = new GridPanel(board);
         exitButton = new buildButtonPanel(board, player1);
-        player1Panel = new BuildPlayerStatsPanel();
-        player2Panel = new BuildPlayer2StatsPanel();
+        player1Panel = new PlayerStatsPanel(player1);
+		player2Panel = new PlayerStatsPanel(player2);
+		player1.assignPanel(player1Panel);
+		player2.assignPanel(player2Panel);
 
         centerPanel.add(gameBoard, BorderLayout.CENTER);
         centerPanel.add(exitButton, BorderLayout.SOUTH);

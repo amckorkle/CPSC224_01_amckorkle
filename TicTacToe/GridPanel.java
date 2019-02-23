@@ -14,15 +14,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GridPanel extends JPanel{
-    private JButton upperLeft;
-    private JButton upperCenter;
-    private JButton upperRight;
-    private JButton middleLeft;
-    private JButton middleCenter;
-    private JButton middleRight;
-    private JButton lowerLeft;
-    private JButton lowerCenter;
-	private JButton lowerRight;
 	private GameBoard board;
         
     public GridPanel(GameBoard board){
