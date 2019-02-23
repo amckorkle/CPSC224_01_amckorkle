@@ -19,7 +19,7 @@ public class BuildPlayerStatsPanel extends JPanel{
     private JLabel nameLabel;
     private JLabel winsLabel;
     private JLabel lossesLabel;
-    private JPanel player1Panel;
+    public JPanel player1Panel;
     
     
     public BuildPlayerStatsPanel(){
