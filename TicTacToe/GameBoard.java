@@ -3,12 +3,17 @@ import javax.swing.*;
 public class GameBoard {
 	private Player[][] board;
 	private Player[] playerList;
+	private GridPanel panel;
 	private int nextPlayerTurn = 0;
 	private int turnCount = 0;
 
 	public GameBoard(Player[] players){
 		board = new Player[3][3];
 		playerList = players;
+	}
+
+	public void assignPanel(GridPanel gridPanel){
+		panel = gridPanel;
 	}
 
 	public ImageIcon getIconAt(int row, int col){
@@ -51,13 +56,14 @@ public class GameBoard {
 
 	public void reset(){
 		for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 board[i][j] = null;
             }
 		}
 
 		nextPlayerTurn = 0;
 		turnCount = 0;
+		panel.refresh();
 	}
 
 	private void incrementNextPlayerTurn(){
