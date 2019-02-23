@@ -27,7 +27,7 @@ public class PlayerStatsPanel extends JPanel{
 	private Player playerOwner;
     
     
-    public PlayerStatsPanel(Player player){
+    public PlayerStatsPanel(Player player, String panelHeader){
 		playerOwner = player;
         player1Panel = new JPanel();
         player1Panel.setLayout(new GridLayout(3, 1));
@@ -42,7 +42,7 @@ public class PlayerStatsPanel extends JPanel{
         losses = new JTextField(8);
         losses.setEditable(false);
         
-        setBorder(BorderFactory.createTitledBorder("Player 1 (X)"));
+        setBorder(BorderFactory.createTitledBorder(panelHeader));
         
         player1Panel.add(nameLabel);
         player1Panel.add(player1Name);

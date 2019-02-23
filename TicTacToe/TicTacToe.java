@@ -48,8 +48,8 @@ public class TicTacToe extends JFrame {
 		gameBoardPanel = new GridPanel(board);
 		board.assignPanel(gameBoardPanel);
         exitButton = new buildButtonPanel(board, player1);
-        player1Panel = new PlayerStatsPanel(player1);
-		player2Panel = new PlayerStatsPanel(player2);
+        player1Panel = new PlayerStatsPanel(player1, "Player 1 (X)");
+		player2Panel = new PlayerStatsPanel(player2, "Player 2 (O)");
 		player1.assignPanel(player1Panel);
 		player2.assignPanel(player2Panel);
 
@@ -66,7 +66,9 @@ public class TicTacToe extends JFrame {
 
         // pack();
 
-        setVisible(true);
+		setVisible(true);
+		player1Panel.refresh();
+		player2Panel.refresh();
 
     }
 
