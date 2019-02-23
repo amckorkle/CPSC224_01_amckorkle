@@ -24,7 +24,7 @@ public class TicTacToe extends JFrame {
     GameBoard board = new GameBoard(new Player[]{player1, player2});
     private final int WINDOW_WIDTH = 500;
     private final int WINDOW_HEIGHT = 500;
-    private GridPanel gameBoard;
+    private GridPanel gameBoardPanel;
     private GameInfoPanel gameLabel;
     private buildButtonPanel exitButton;
     private JPanel centerPanel;
@@ -45,14 +45,15 @@ public class TicTacToe extends JFrame {
         upperPanel = new JPanel(new BorderLayout());
 
         gameLabel = new GameInfoPanel();
-        gameBoard = new GridPanel(board);
+		gameBoardPanel = new GridPanel(board);
+		board.assignPanel(gameBoardPanel);
         exitButton = new buildButtonPanel(board, player1);
         player1Panel = new PlayerStatsPanel(player1);
 		player2Panel = new PlayerStatsPanel(player2);
 		player1.assignPanel(player1Panel);
 		player2.assignPanel(player2Panel);
 
-        centerPanel.add(gameBoard, BorderLayout.CENTER);
+        centerPanel.add(gameBoardPanel, BorderLayout.CENTER);
         centerPanel.add(exitButton, BorderLayout.SOUTH);
         
         upperPanel.add(player1Panel, BorderLayout.WEST);

@@ -1,3 +1,3 @@
 target: 
-	javac TicTacToe.java 
+	javac *.java 
 	java TicTacToe

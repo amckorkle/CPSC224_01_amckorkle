@@ -15,6 +15,7 @@ import java.awt.event.*;
 
 public class GridPanel extends JPanel{
 	private GameBoard board;
+	JButton[][] buttonGrid;
         
     public GridPanel(GameBoard board){
 		this.board = board;
@@ -22,7 +23,7 @@ public class GridPanel extends JPanel{
 		setLayout(new GridLayout(3,3));
 		
 		
-		JButton[][] buttonGrid = new JButton[3][3];
+		buttonGrid = new JButton[3][3];
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++){
 				buttonGrid[i][j] = new JButton();
@@ -33,6 +34,14 @@ public class GridPanel extends JPanel{
 		}
 	}
 	
+	public void refresh(){
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				buttonGrid[i][j].setIcon(board.getIconAt(i, j));
+			}
+		}
+	}
+
 	private class ButtonClickListener implements ActionListener {
 		JButton[][] buttonGrid;
 		GameBoard board;
