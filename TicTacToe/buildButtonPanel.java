@@ -16,7 +16,7 @@ public class buildButtonPanel extends JPanel {
     private JButton newGame;
     private JButton reset;
     private JButton exit;
-    private PlayerStatsPanel player1Name;
+    private PlayerStatsPanel playerName;
     private GameBoard board;
     private Player player;
     
@@ -33,9 +33,10 @@ public class buildButtonPanel extends JPanel {
         newGame = new JButton("New Game");
         newGame.addActionListener(new NewGameButtonListener());
         
-        add(exit);
-        add(reset);
         add(newGame);
+        add(reset);
+        add(exit);
+        
     }
     
     private class ExitButtonListener implements ActionListener{
@@ -58,9 +59,12 @@ public class buildButtonPanel extends JPanel {
     
     private class NewGameButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            //if(player1Name.equals("")){
-                JOptionPane.showMessageDialog(null, "ErrorMsg", null, JOptionPane.ERROR_MESSAGE);
+            if(PlayerName.getName() == null){
+                JOptionPane.showMessageDialog(null, "Names are Illegal", "Error Message", JOptionPane.ERROR_MESSAGE);
             }
-        //}
+            //else{ 
+                
+            //}
+        }
     }
 }
