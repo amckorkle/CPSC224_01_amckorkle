@@ -10,6 +10,9 @@
  */
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -30,7 +33,8 @@ public class PlayerStatsPanel extends JPanel{
         player1Panel.setLayout(new GridLayout(3, 1));
         
         nameLabel = new JLabel("Name: ");
-        player1Name = new JTextField(player.getName(), 8);
+		player1Name = new JTextField(player.getName(), 8);
+		player1Name.getDocument().addDocumentListener(new TextChangeListener());
         winsLabel = new JLabel("Wins: ");
         wins = new JTextField(8);
         wins.setEditable(false);
@@ -53,7 +57,21 @@ public class PlayerStatsPanel extends JPanel{
 	public void refresh(){
 		wins.setText("" + playerOwner.getWins());
 		losses.setText("" + playerOwner.getLosses());
-		player1Name.setText(playerOwner.getName());
 	}
 
+	private class TextChangeListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent e){
+			playerOwner.setName(player1Name.getText());
+		}
+
+		public void removeUpdate(DocumentEvent e){
+			playerOwner.setName(player1Name.getText());
+			
+		}
+
+		public void insertUpdate(DocumentEvent e){
+			playerOwner.setName(player1Name.getText());
+			
+		}
+	}
 }
