@@ -8,26 +8,29 @@
  *
  * @author aylam
  */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class BuildPlayerStatsPanel extends JPanel{
+public class PlayerStatsPanel extends JPanel{
     private JTextField player1Name;
     private JTextField wins;
     private JTextField losses;
     private JLabel nameLabel;
     private JLabel winsLabel;
     private JLabel lossesLabel;
-    private JPanel player1Panel;
+	private JPanel player1Panel;
+	private Player playerOwner;
     
     
-    public BuildPlayerStatsPanel(){
+    public PlayerStatsPanel(Player player){
+		playerOwner = player;
         player1Panel = new JPanel();
         player1Panel.setLayout(new GridLayout(3, 1));
         
         nameLabel = new JLabel("Name: ");
-        player1Name = new JTextField("Player 1", 8);
+        player1Name = new JTextField(player.getName(), 8);
         winsLabel = new JLabel("Wins: ");
         wins = new JTextField(8);
         wins.setEditable(false);
@@ -45,6 +48,12 @@ public class BuildPlayerStatsPanel extends JPanel{
         player1Panel.add(losses);
         
         add(player1Panel);
-    }
+	}
+	
+	public void refresh(){
+		wins.setText("" + playerOwner.getWins());
+		losses.setText("" + playerOwner.getLosses());
+		player1Name.setText(playerOwner.getName());
+	}
 
 }
