@@ -55,6 +55,7 @@ public class Player {
 		wins = 0;
 		losses = 0;
 		panel.refresh();
+		panel.player1Name.setEditable(true);
 	}
 
 }
