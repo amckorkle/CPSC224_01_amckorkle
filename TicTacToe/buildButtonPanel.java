@@ -16,16 +16,16 @@ public class buildButtonPanel extends JPanel {
     private JButton newGame;
     private JButton reset;
     private JButton exit;
-    private PlayerStatsPanel playerName;
+    private String player1Name;
+    private String player2Name;
     private GameBoard board;
-    private Player player;
+    private Player player1;
+    private Player player2;
     
-    public buildButtonPanel(GameBoard board, Player player){
+    public buildButtonPanel(GameBoard board, Player player1, Player player2){
         this.board = board;
-        this.player = player;
-
-        //playerName = new PlayerStatsPanel(player);
-        //grid = new GridPanel(board);
+        this.player1 = player1;
+        this.player2 = player2;
 
         exit = new JButton("Exit");
         exit.addActionListener(new ExitButtonListener());
@@ -54,7 +54,8 @@ public class buildButtonPanel extends JPanel {
                     null, JOptionPane.YES_NO_OPTION);
             if(userChoice == JOptionPane.YES_OPTION){
                 board.reset();
-                player.reset();
+                player1.reset();
+                player2.reset();
             }
             
         }
@@ -62,12 +63,16 @@ public class buildButtonPanel extends JPanel {
     
     private class NewGameButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-                //playerName.enableName();
-                //JOptionPane.showMessageDialog(null, "Names are Illegal", "Error Message", JOptionPane.ERROR_MESSAGE);
+                player1Name = player1.getName();
+                player2Name = player2.getName();
+                System.out.println(player1Name);
+                if(player1Name.trim().isEmpty() || player2Name.trim().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Names are Illegal", "Error Message", JOptionPane.ERROR_MESSAGE);
+                }
+            else{ 
                 board.enableGrid();
-           // }
-            //else{ 
-            //}
+
+            }
         }
     }
 }
