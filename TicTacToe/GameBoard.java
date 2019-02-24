@@ -12,8 +12,16 @@ public class GameBoard {
 		playerList = players;
 	}
 
-	public void assignPanel(GridPanel gridPanel){
+public void assignPanel(GridPanel gridPanel){
 		panel = gridPanel;
+	}
+
+	public void enableGrid(){
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+          		panel.buttonGrid[i][j].setEnabled(true);
+        	}
+    	}
 	}
 
 	public ImageIcon getIconAt(int row, int col){

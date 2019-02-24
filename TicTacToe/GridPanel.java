@@ -29,7 +29,7 @@ public class GridPanel extends JPanel{
 				buttonGrid[i][j] = new JButton();
 				buttonGrid[i][j].addActionListener(new ButtonClickListener(buttonGrid, board));
 				add(buttonGrid[i][j]);
-
+				buttonGrid[i][j].setEnabled(false);
 			}
 		}
 	}

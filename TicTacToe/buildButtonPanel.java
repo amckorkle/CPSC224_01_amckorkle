@@ -23,7 +23,10 @@ public class buildButtonPanel extends JPanel {
     public buildButtonPanel(GameBoard board, Player player){
         this.board = board;
         this.player = player;
-        
+
+        //playerName = new PlayerStatsPanel(player);
+        //grid = new GridPanel(board);
+
         exit = new JButton("Exit");
         exit.addActionListener(new ExitButtonListener());
         
@@ -59,11 +62,11 @@ public class buildButtonPanel extends JPanel {
     
     private class NewGameButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            if(PlayerName.getName() == null){
-                JOptionPane.showMessageDialog(null, "Names are Illegal", "Error Message", JOptionPane.ERROR_MESSAGE);
-            }
+                //playerName.enableName();
+                //JOptionPane.showMessageDialog(null, "Names are Illegal", "Error Message", JOptionPane.ERROR_MESSAGE);
+                board.enableGrid();
+           // }
             //else{ 
-                
             //}
         }
     }
