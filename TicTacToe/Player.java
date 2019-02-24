@@ -18,7 +18,6 @@ public class Player {
 
 	public void setName(String newName) {
 		name = newName;
-		System.out.println("hello " + name);
 		panel.refresh();
 	}
 

@@ -22,5 +22,9 @@ public class GameInfoPanel extends JPanel{
         setBorder(BorderFactory.createEtchedBorder());
         
         add(messageLabel);
-    }
+	}
+	
+	public void setInfoPanelText(String text){
+		messageLabel.setText(text);
+	}
 }

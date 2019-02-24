@@ -3,23 +3,31 @@ import javax.swing.*;
 public class GameBoard {
 	private Player[][] board;
 	private Player[] playerList;
-	private GridPanel panel;
+	private GridPanel gridPanel;
+	private GameInfoPanel gameInfoPanel;	
 	private int nextPlayerTurn = 0;
 	private int turnCount = 0;
 
 	public GameBoard(Player[] players){
 		board = new Player[3][3];
 		playerList = players;
+		
 	}
 
-public void assignPanel(GridPanel gridPanel){
-		panel = gridPanel;
+	public void assignGridPanel(GridPanel gridPanel){
+		this.gridPanel = gridPanel;
+	}
+
+	public void assignGameInfoPanel(GameInfoPanel panel){
+		gameInfoPanel = panel;
 	}
 
 	public void enableGrid(){
+		gameInfoPanel.setInfoPanelText(playerList[nextPlayerTurn].getName() + "'s turn.");
+		
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++){
-          		panel.buttonGrid[i][j].setEnabled(true);
+          		gridPanel.buttonGrid[i][j].setEnabled(true);
         	}
     	}
 	}
@@ -39,19 +47,25 @@ public void assignPanel(GridPanel gridPanel){
 
 		Player winner = winnerExists();
 		if(winner != null){
+			gameInfoPanel.setInfoPanelText(winner.getName() + " won!");
 			winner.incrementWins();
 			for(Player player : playerList){
 				if(player != winner){
 					player.incrementLosses();
 				}
 			}
-		}
-
-		if(turnCount >= 9){
+			
+		} else if(turnCount >= 9){
+			gameInfoPanel.setInfoPanelText("Cat's game--no one wins.");
+			
 			for(Player player : playerList){
 				player.incrementLosses();
 			}
+
+		} else {
+			gameInfoPanel.setInfoPanelText(playerList[nextPlayerTurn].getName() + "'s turn.");
 		}
+
 	}
 
 	public Player playerAt(int row, int col){
@@ -71,7 +85,8 @@ public void assignPanel(GridPanel gridPanel){
 
 		nextPlayerTurn = 0;
 		turnCount = 0;
-		panel.refresh();
+		gridPanel.refresh();
+		gameInfoPanel.setInfoPanelText(playerList[nextPlayerTurn].getName() + "'s turn.");
 	}
 
 	private void incrementNextPlayerTurn(){
