@@ -76,10 +76,12 @@ public class GameBoard {
 		board[row][col] = player;
 	}
 
-	public void reset(){
+	public void reset(boolean isReset){
 		for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = null;
+				if(isReset)
+					gridPanel.buttonGrid[i][j].setEnabled(false);
             }
 		}
 

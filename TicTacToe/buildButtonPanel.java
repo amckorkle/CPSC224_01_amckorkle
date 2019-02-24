@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class buildButtonPanel extends JPanel {
+public class BuildButtonPanel extends JPanel {
     private JButton newGame;
     private JButton reset;
     private JButton exit;
@@ -22,7 +22,7 @@ public class buildButtonPanel extends JPanel {
     private Player player1;
     private Player player2;
     
-    public buildButtonPanel(GameBoard board, Player player1, Player player2){
+    public BuildButtonPanel(GameBoard board, Player player1, Player player2){
         this.board = board;
         this.player1 = player1;
         this.player2 = player2;
@@ -53,7 +53,7 @@ public class buildButtonPanel extends JPanel {
             int userChoice = JOptionPane.showConfirmDialog(null, "This will end the game and set the win/loss stats to 0. Are you sure?", 
                     null, JOptionPane.YES_NO_OPTION);
             if(userChoice == JOptionPane.YES_OPTION){
-                board.reset();
+                board.reset(true);
                 player1.reset();
                 player2.reset();
             }
@@ -71,7 +71,7 @@ public class buildButtonPanel extends JPanel {
                 }
             else{ 
                 board.enableGrid();
-                board.reset();
+                board.reset(false);
                 player1.disableNames();
                 player2.disableNames();
             }

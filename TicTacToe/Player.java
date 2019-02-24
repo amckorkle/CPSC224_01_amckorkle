@@ -6,10 +6,12 @@ public class Player {
 	private int losses = 0;
 	private String name;
 	private PlayerStatsPanel panel;
+	private String initialName;
 
 	public Player(String path, String defaultName) {
 		symbol = new ImageIcon(path);
 		name = defaultName;
+		initialName = defaultName;
 	}
 
 	public void assignPanel(PlayerStatsPanel panel){
@@ -55,7 +57,9 @@ public class Player {
 		wins = 0;
 		losses = 0;
 		panel.refresh();
+		panel.player1Name.setText(initialName);
 		panel.player1Name.setEditable(true);
+
 	}
 
 }
