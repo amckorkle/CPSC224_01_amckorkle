@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- *
- * @author aylam
+ * Assignment 3
+ * Due Date: 2/22/19
+ * Authors: Ayla McKorkle and Kasey Davis
+ * Github: amckorkle
  */
 import javax.swing.*;
 import java.awt.*;
@@ -21,11 +18,16 @@ public class BuildButtonPanel extends JPanel {
     private GameBoard board;
     private Player player1;
     private Player player2;
+    private GameInfoPanel gameLabel;
     
-    public BuildButtonPanel(GameBoard board, Player player1, Player player2){
+    /*
+    * consturctor
+    */
+    public BuildButtonPanel(GameBoard board, Player player1, Player player2, GameInfoPanel gameLabel){
         this.board = board;
         this.player1 = player1;
         this.player2 = player2;
+        this.gameLabel = gameLabel;
 
         exit = new JButton("Exit");
         exit.addActionListener(new ExitButtonListener());
@@ -42,12 +44,20 @@ public class BuildButtonPanel extends JPanel {
         
     }
     
+    /**
+      Private inner class that handles the event when
+      the user clicks the Exit button.
+   */
     private class ExitButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
             System.exit(0);
         }
     }
     
+    /**
+      Private inner class that handles the event when
+      the user clicks the Reset button.
+   */
     private class ResetButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
             int userChoice = JOptionPane.showConfirmDialog(null, "This will end the game and set the win/loss stats to 0. Are you sure?", 
@@ -56,11 +66,16 @@ public class BuildButtonPanel extends JPanel {
                 board.reset(true);
                 player1.reset();
                 player2.reset();
+                gameLabel.setInfoPanelText("Welcome to Tic-Tac-Toe!");
             }
             
         }
     }
     
+    /**
+      Private inner class that handles the event when
+      the user clicks the New Game button.
+   */
     private class NewGameButtonListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
                 player1Name = player1.getName();

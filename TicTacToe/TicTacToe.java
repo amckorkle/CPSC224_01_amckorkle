@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * Assignment 3
@@ -16,9 +11,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class TicTacToe extends JFrame {
-    /*
-     * To-do: Do we need a UML diagram?
-     */
     Player player1 = new Player("icons/X.png", "Player 1");
     Player player2 = new Player("icons/O.png", "Player 2");
     GameBoard board = new GameBoard(new Player[]{player1, player2});
@@ -32,6 +24,9 @@ public class TicTacToe extends JFrame {
     private PlayerStatsPanel player2Panel;
     private JPanel upperPanel;
 
+    /*
+    * consturctor
+    */
     public TicTacToe() {
         setTitle("Tic Tac Toe");
 
@@ -48,7 +43,7 @@ public class TicTacToe extends JFrame {
 		gameBoardPanel = new GridPanel(board);
 		board.assignGridPanel(gameBoardPanel);
 		board.assignGameInfoPanel(gameLabel);
-        exitButton = new BuildButtonPanel(board, player1, player2);
+        exitButton = new BuildButtonPanel(board, player1, player2, gameLabel);
         player1Panel = new PlayerStatsPanel(player1, "Player 1 (X)");
 		player2Panel = new PlayerStatsPanel(player2, "Player 2 (O)");
 		player1.assignPanel(player1Panel);
@@ -73,6 +68,9 @@ public class TicTacToe extends JFrame {
 
     }
 
+    /**
+      main method
+   */
     public static void main(String[] args) {
         new TicTacToe();
 	}

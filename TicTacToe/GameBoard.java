@@ -1,3 +1,11 @@
+
+/**
+ * Assignment 3
+ * Due Date: 2/22/19
+ * Authors: Ayla McKorkle and Kasey Davis
+ * Github: amckorkle
+ */
+
 import javax.swing.*;
 
 public class GameBoard {
@@ -8,20 +16,35 @@ public class GameBoard {
 	private int nextPlayerTurn = 0;
 	private int turnCount = 0;
 
+	/*
+    * consturctor
+    */
 	public GameBoard(Player[] players){
 		board = new Player[3][3];
 		playerList = players;
 		
 	}
 
+	/**
+      assignGridPanel method
+      @param gridPanel is the gridPanel used to play
+   */
 	public void assignGridPanel(GridPanel gridPanel){
 		this.gridPanel = gridPanel;
 	}
 
+	/**
+      assignGameInfoPanel method
+      @param panel is the panel that holds the game info
+   */
 	public void assignGameInfoPanel(GameInfoPanel panel){
 		gameInfoPanel = panel;
 	}
 
+	/**
+      enableGrid method
+      enables all of the buttons in the grid to be pushed
+   */
 	public void enableGrid(){
 		gameInfoPanel.setInfoPanelText(playerList[nextPlayerTurn].getName() + "'s turn.");
 		
@@ -32,6 +55,10 @@ public class GameBoard {
     	}
 	}
 
+	/**
+      disableGrid method
+      disables all of the buttons in the grid so they cannot be pushed
+   */
 	public void disableGrid(){
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++){
@@ -40,6 +67,12 @@ public class GameBoard {
 		}
 	}
 
+	/**
+      getIconAt method
+      @param row the row that button is in
+	  @param col the column the button is in
+	  @return the symbol that is on that button or otherwise null
+   */
 	public ImageIcon getIconAt(int row, int col){
 		if(playerAt(row, col) != null){
 			return playerAt(row, col).getSymbolIcon();
@@ -48,6 +81,11 @@ public class GameBoard {
 		return null;
 	}
 
+	/**
+      handleGameplayEvent method
+      @param row the row that button is in
+	  @param col the column the button is in
+   */
 	public void handleGameplayEvent(int row, int col){
 		place(row, col, playerList[nextPlayerTurn]);
 		incrementNextPlayerTurn();
@@ -77,14 +115,30 @@ public class GameBoard {
 
 	}
 
+	/**
+      playerAt method
+      @param row the row that button is in
+	  @param col the column the button is in
+	  @return the button that is at that row and column
+   */
 	public Player playerAt(int row, int col){
 		return board[row][col];
 	}	
 
+	/**
+      place method
+      @param row the row that button is in
+	  @param col the column the button is in
+	  @param player the player that has the turn
+   */
 	public void place(int row, int col, Player player){
 		board[row][col] = player;
 	}
 
+	/**
+      playerAt method
+      @param isReset true if we want the board disabled otherwise false
+   */
 	public void reset(boolean isReset){
 		for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -100,15 +154,28 @@ public class GameBoard {
 		gameInfoPanel.setInfoPanelText(playerList[nextPlayerTurn].getName() + "'s turn.");
 	}
 
+	/**
+      incrementNewPlayerTurn method
+   */
 	private void incrementNextPlayerTurn(){
 		nextPlayerTurn++;
 		nextPlayerTurn %= playerList.length;
 	}
 
+	/**
+      isPlayerAt method
+      @param row the row that button is in
+	  @param col the column the button is in
+	  @return the button that is at that row and column is null
+   */
 	public boolean isPlayerAt(int row, int col){
 		return board[row][col] != null;
 	}
 
+	/**
+      winnerExists method
+	  @return the final location to check if the user has won or not
+   */
 	public Player winnerExists() {
         // Check horizontals
         for (int row = 0; row < 3; row++) {

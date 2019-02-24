@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- *
- * @author aylam
+ * Assignment 3
+ * Due Date: 2/22/19
+ * Authors: Ayla McKorkle and Kasey Davis
+ * Github: amckorkle
  */
 
 import javax.swing.*;
@@ -26,7 +23,9 @@ public class PlayerStatsPanel extends JPanel{
 	private JPanel player1Panel;
 	private Player playerOwner;
     
-    
+    /*
+    * consturctor
+    */
     public PlayerStatsPanel(Player player, String panelHeader){
 		playerOwner = player;
         player1Panel = new JPanel();
@@ -54,11 +53,19 @@ public class PlayerStatsPanel extends JPanel{
         add(player1Panel);
 	}
 	
+    /**
+      refresh method
+      updates the wins and losses in a player panel
+   */
 	public void refresh(){
 		wins.setText("" + playerOwner.getWins());
 		losses.setText("" + playerOwner.getLosses());
 	}
 
+    /**
+      Private inner class that handles the event when
+      the user enters their name.
+   */
 	private class TextChangeListener implements DocumentListener{
 		public void changedUpdate(DocumentEvent e){
 			playerOwner.setName(player1Name.getText());
