@@ -17,7 +17,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class PlayerStatsPanel extends JPanel{
-    private JTextField player1Name;
+    JTextField player1Name;
     private JTextField wins;
     private JTextField losses;
     private JLabel nameLabel;

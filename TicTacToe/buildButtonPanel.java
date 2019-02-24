@@ -71,7 +71,9 @@ public class buildButtonPanel extends JPanel {
                 }
             else{ 
                 board.enableGrid();
-
+                board.reset();
+                player1.disableNames();
+                player2.disableNames();
             }
         }
     }
