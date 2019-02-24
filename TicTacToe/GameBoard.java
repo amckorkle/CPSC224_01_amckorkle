@@ -32,6 +32,14 @@ public class GameBoard {
     	}
 	}
 
+	public void disableGrid(){
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				gridPanel.buttonGrid[i][j].setEnabled(false);
+			}
+		}
+	}
+
 	public ImageIcon getIconAt(int row, int col){
 		if(playerAt(row, col) != null){
 			return playerAt(row, col).getSymbolIcon();
@@ -48,16 +56,17 @@ public class GameBoard {
 		Player winner = winnerExists();
 		if(winner != null){
 			gameInfoPanel.setInfoPanelText(winner.getName() + " won!");
+			disableGrid();
 			winner.incrementWins();
 			for(Player player : playerList){
 				if(player != winner){
 					player.incrementLosses();
 				}
 			}
-			
+
 		} else if(turnCount >= 9){
 			gameInfoPanel.setInfoPanelText("Cat's game--no one wins.");
-			
+			disableGrid();
 			for(Player player : playerList){
 				player.incrementLosses();
 			}
@@ -85,7 +94,7 @@ public class GameBoard {
 
 		nextPlayerTurn = 0;
 		turnCount = 0;
-		gridPanel.refresh();
+		gridPanel.clear();
 		gameInfoPanel.setInfoPanelText(playerList[nextPlayerTurn].getName() + "'s turn.");
 	}
 
@@ -130,9 +139,9 @@ public class GameBoard {
             idx++;
         }
 
-        while (board[2][2] != null && board[2][2] == board[2 - idx][2 - idx] && idx < 3) {
+        while (board[0][2] != null && board[0][2] == board[idx][2 - idx] && idx < 3) {
             if (idx == 2) {
-                return board[2][2];
+                return board[0][2];
             }
             idx++;
         }
