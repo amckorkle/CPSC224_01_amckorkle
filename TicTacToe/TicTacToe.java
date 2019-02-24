@@ -13,7 +13,7 @@ import java.awt.event.*;
 public class TicTacToe extends JFrame {
     Player player1 = new Player("icons/X.png", "Player 1");
     Player player2 = new Player("icons/O.png", "Player 2");
-    GameBoard board = new GameBoard(new Player[]{player1, player2});
+    GameBoard board = new GameBoard(new Player[] { player1, player2 });
     private final int WINDOW_WIDTH = 500;
     private final int WINDOW_HEIGHT = 500;
     private GridPanel gameBoardPanel;
@@ -25,8 +25,8 @@ public class TicTacToe extends JFrame {
     private JPanel upperPanel;
 
     /*
-    * consturctor
-    */
+     * consturctor
+     */
     public TicTacToe() {
         setTitle("Tic Tac Toe");
 
@@ -40,38 +40,35 @@ public class TicTacToe extends JFrame {
         upperPanel = new JPanel(new BorderLayout());
 
         gameLabel = new GameInfoPanel();
-		gameBoardPanel = new GridPanel(board);
-		board.assignGridPanel(gameBoardPanel);
-		board.assignGameInfoPanel(gameLabel);
+        gameBoardPanel = new GridPanel(board);
+        board.assignGridPanel(gameBoardPanel);
+        board.assignGameInfoPanel(gameLabel);
         exitButton = new BuildButtonPanel(board, player1, player2, gameLabel);
         player1Panel = new PlayerStatsPanel(player1, "Player 1 (X)");
-		player2Panel = new PlayerStatsPanel(player2, "Player 2 (O)");
-		player1.assignPanel(player1Panel);
-		player2.assignPanel(player2Panel);
+        player2Panel = new PlayerStatsPanel(player2, "Player 2 (O)");
+        player1.assignPanel(player1Panel);
+        player2.assignPanel(player2Panel);
 
         centerPanel.add(gameBoardPanel, BorderLayout.CENTER);
         centerPanel.add(exitButton, BorderLayout.SOUTH);
-        
+
         upperPanel.add(player1Panel, BorderLayout.WEST);
         upperPanel.add(player2Panel, BorderLayout.EAST);
 
         add(centerPanel, BorderLayout.CENTER);
         add(gameLabel, BorderLayout.SOUTH);
         add(upperPanel, BorderLayout.NORTH);
-        
 
-        //pack();
-
-		setVisible(true);
-		player1Panel.refresh();
-		player2Panel.refresh();
+        setVisible(true);
+        player1Panel.refresh();
+        player2Panel.refresh();
 
     }
 
     /**
-      main method
-   */
+     * main method
+     */
     public static void main(String[] args) {
         new TicTacToe();
-	}
+    }
 }
