@@ -16,6 +16,10 @@ public class Player {
 		this.panel = panel;
 	}
 
+	public void disableNames(){
+		panel.player1Name.setEditable(false);
+	}
+
 	public void setName(String newName) {
 		name = newName;
 		panel.refresh();
