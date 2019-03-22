@@ -24,10 +24,13 @@ public class MotionParallax extends JFrame {
 
     public void paint(Graphics g){
         super.paint(g);
+        drawBackgroundRiver(g, 0);
         drawBackgroundMountain(g, .5);
         drawForegroundMountains(g, .7);
         drawSun(g, 0);  
-        drawRiver(g, 1);  
+        drawRiver(g, 0.9);
+        drawWaves(g, 1);
+        drawFish(g, 1);
     }
 
     public void drawSun(Graphics g, double layer){
@@ -37,6 +40,12 @@ public class MotionParallax extends JFrame {
     }
 
     public void drawRiver(Graphics g, double layer){
+        g.setColor(Color.CYAN);
+        g.drawRect(0, 400, 500, 100);
+        g.fillRect(0, 400, 500, 100);
+    }
+
+    public void drawBackgroundRiver(Graphics g, double layer){
         g.setColor(Color.BLUE);
         g.drawRect(0, 400, 500, 100);
         g.fillRect(0, 400, 500, 100);
@@ -68,6 +77,33 @@ public class MotionParallax extends JFrame {
 
         g.setColor(randomColor);
         g.fillPolygon(xValues, yValues, 5);
+    }
+
+    public void drawFish(Graphics g, double layer){
+        int xValues[] = {300, 310, 300};
+        int yValues[] = {450, 460, 470};
+        g.setColor(Color.RED);
+        g.drawOval(308, 450, 30, 20);
+        g.fillOval(308, 450, 30, 20);
+        g.fillPolygon(xValues, yValues, 3);
+
+
+    }
+
+    public void drawWaves(Graphics g, double layer){
+        int x = 20;
+        int y = 420;
+        g.setColor(Color.BLACK);
+        for(int j = 0; j < 3; j++){
+            for(int i = 0; i < 5; i++){
+                g.drawArc(x, y, 10, 10, 360, 180);
+                x+=10;
+                g.drawArc(x, y, 10, 10, 180, 180);
+                x+=10;
+            }
+            x+=70;
+            y+=20;
+        }
     }
 
 	public static void main(String[] args){
