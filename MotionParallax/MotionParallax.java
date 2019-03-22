@@ -13,4 +13,9 @@ public class MotionParallax extends JFrame {
 	public static void main(String[] args){
 		new MotionParallax();
 	}
+
+    public void paint(Graphics g){
+        super.paint(g);
+        g.drawOval(250, 250, 20, 20);
+    }
 }
