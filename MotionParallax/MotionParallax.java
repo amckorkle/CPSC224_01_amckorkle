@@ -1,14 +1,25 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
+import java.util.Random;
 
 public class MotionParallax extends JFrame {
+	Timer timer;
+	Point mousePos;
+
 	public MotionParallax(){
+		timer = new Timer(600, new timerListener());
+		mousePos = new Point();
+		addMouseMotionListener(new MyMouseMotionListener());
+		
 		setTitle("Motion Parallax");
 		setSize(500, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		timer.start();
 		setVisible(true);
+
+
 	}
 
     public void paint(Graphics g){
@@ -61,5 +72,30 @@ public class MotionParallax extends JFrame {
 
 	public static void main(String[] args){
 		new MotionParallax();
+    }
+
+	public Point computeParalaxPos(Point objPos, Point mousePos, double parallaxAmt){
+		int x = objPos.x + (int)(parallaxAmt * (mousePos.x - objPos.x));
+		int y = objPos.y + (int)(parallaxAmt * (mousePos.y - objPos.y));
+		return new Point(x, y);
+	}
+
+	private class timerListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			repaint();
+		}
+	}
+
+	private class MyMouseMotionListener implements MouseMotionListener{
+		public void mouseDragged(MouseEvent e)
+        {
+        }
+      
+        
+        public void mouseMoved(MouseEvent e)
+        {
+			mousePos.setLocation(e.getX(), e.getY());
+		}
+		
 	}
 }
