@@ -8,7 +8,7 @@ public class MotionParallax extends JFrame {
 	Point mousePos;
 
 	public MotionParallax(){
-		timer = new Timer(600, new timerListener());
+		timer = new Timer(30, new timerListener());
 		mousePos = new Point();
 		addMouseMotionListener(new MyMouseMotionListener());
 		
@@ -24,31 +24,31 @@ public class MotionParallax extends JFrame {
 
     public void paint(Graphics g){
         super.paint(g);
-        drawBackgroundRiver(g, 0);
-        drawBackgroundMountain(g, .5);
-        drawForegroundMountains(g, .7);
-        drawSun(g, 0);  
-        drawRiver(g, 0.9);
-        drawWaves(g, 1);
-        drawFish(g, 1);
+        drawSun(g, 0.05);
+        //drawBackgroundMountain(g, 0.15);
+        //drawForegroundMountains(g, 0.25);
+		drawBackgroundRiver(g, 0.5);
+		drawFish(g, 0.65);
+        drawRiver(g, 0.7);
+        drawWaves(g, 0.7);
     }
 
     public void drawSun(Graphics g, double layer){
-        g.setColor(Color.YELLOW);
-        g.drawOval(350, 100, 100, 100);
-        g.fillOval(350, 100, 100, 100);
+		g.setColor(Color.YELLOW);
+		Point sunP = computeParallaxPos(new Point(350, 100), layer);
+        g.fillOval(sunP.x, sunP.y, 100, 100);
     }
 
     public void drawRiver(Graphics g, double layer){
-        g.setColor(Color.CYAN);
-        g.drawRect(0, 400, 500, 100);
-        g.fillRect(0, 400, 500, 100);
+		g.setColor(Color.CYAN);
+		Point river = computeParallaxPos(new Point(-200, 450), layer);
+        g.fillRect(river.x, river.y, 1000, 1000);
     }
 
     public void drawBackgroundRiver(Graphics g, double layer){
-        g.setColor(Color.BLUE);
-        g.drawRect(0, 400, 500, 100);
-        g.fillRect(0, 400, 500, 100);
+		g.setColor(Color.BLUE);
+		Point river = computeParallaxPos(new Point(-200, 400), layer);
+        g.fillRect(river.x, river.y, 1000, 200);
     }
 
     public void drawBackgroundMountain(Graphics g, double layer){
@@ -81,10 +81,19 @@ public class MotionParallax extends JFrame {
 
     public void drawFish(Graphics g, double layer){
         int xValues[] = {300, 310, 300};
-        int yValues[] = {450, 460, 470};
-        g.setColor(Color.RED);
-        g.drawOval(308, 450, 30, 20);
-        g.fillOval(308, 450, 30, 20);
+		int yValues[] = {420, 440, 450};
+
+		Point fish[] = new Point[3];
+		for(int i = 0; i < 3; i++){
+			fish[i] = computeParallaxPos(new Point(xValues[i], yValues[i]), layer);
+			xValues[i] = fish[i].x;
+			yValues[i] = fish[i].y;
+		}
+
+		g.setColor(Color.RED);
+		
+		Point fishOval = computeParallaxPos(new Point(308, 420), layer);
+        g.fillOval(fishOval.x, fishOval.y, 30, 20);
         g.fillPolygon(xValues, yValues, 3);
 
 
@@ -110,9 +119,9 @@ public class MotionParallax extends JFrame {
 		new MotionParallax();
     }
 
-	public Point computeParalaxPos(Point objPos, Point mousePos, double parallaxAmt){
-		int x = objPos.x + (int)(parallaxAmt * (mousePos.x - objPos.x));
-		int y = objPos.y + (int)(parallaxAmt * (mousePos.y - objPos.y));
+	public Point computeParallaxPos(Point objPos, double parallaxAmt){
+		int x = objPos.x + (int)(parallaxAmt * (mousePos.x - 250));
+		int y = objPos.y + (int)(parallaxAmt * (mousePos.y - 250));
 		return new Point(x, y);
 	}
 
