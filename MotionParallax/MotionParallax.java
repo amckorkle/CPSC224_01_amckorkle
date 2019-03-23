@@ -39,7 +39,7 @@ public class MotionParallax extends JFrame {
         drawRiver(g, 0.9);
         drawWaves(g, 1);
         drawFish(g, 1);
-        if(isOn == true){
+        if(true){
             drawSunglasses(g, 0.1);
         }
     }
@@ -61,7 +61,7 @@ public class MotionParallax extends JFrame {
     }
 
     public void drawRiver(Graphics g, double layer){
-		g.setColor(Color.CYAN);
+		g.setColor(Color.BLUE);
 		Point river = computeParallaxPos(new Point(-200, 450), layer);
         g.fillRect(river.x, river.y, 1000, 1000);
     }
@@ -99,7 +99,7 @@ public class MotionParallax extends JFrame {
 
 		g.setColor(Color.RED);
 		
-		Point fishOval = computeParallaxPos(new Point(308, 420), layer);
+		Point fishOval = computeParallaxPos(new Point(308, 430), layer);
         g.fillOval(fishOval.x, fishOval.y, 30, 20);
 
         g.fillPolygon(xValues, yValues, 3);
