@@ -49,7 +49,7 @@ public class MotionParallax extends JFrame {
 		drawBackgroundRiver(g, 0.5);
 		drawFish(g, 0.65);
         drawRiver(g, 0.7);
-        drawWaves(g, 0.7);
+        drawWaves(g, 0.5);
 
     }
 
@@ -143,16 +143,21 @@ public class MotionParallax extends JFrame {
     public void drawWaves(Graphics g, double layer){
         int x = 20;
         int y = 420;
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         for(int j = 0; j < 3; j++){
             for(int i = 0; i < 5; i++){
-                g.drawArc(x, y, 10, 10, 360, 180);
-                x+=10;
-                g.drawArc(x, y, 10, 10, 180, 180);
+				Point waveParallax = computeParallaxPos(new Point(x, y), layer);
+                g.drawArc(waveParallax.x, waveParallax.y, 10, 10, 360, 180);
+				x+=10;
+
+			  	waveParallax = computeParallaxPos(new Point(x, y), layer);
+                g.drawArc(waveParallax.x, waveParallax.y, 10, 10, 180, 180);
                 x+=10;
             }
             x+=70;
-            y+=20;
+			y+=20;
+			layer += 0.10;
+			
         }
     }
 
