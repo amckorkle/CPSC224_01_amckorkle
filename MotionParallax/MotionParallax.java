@@ -2,21 +2,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
+import java.lang.Math;
 
 public class MotionParallax extends JFrame {
 	Timer timer;
 	Point mousePos;
+	Point fishPos;
     Color randomColor1;
     Color randomColor2;
     boolean isOn = false;
 
 	public MotionParallax(){
-		timer = new Timer(30, new timerListener());
+		timer = new Timer(60, new timerListener());
 
         randomColor1 = generateRandomColor();
         randomColor2 = generateRandomColor();
 
 		mousePos = new Point();
+		fishPos = new Point();
+
         addMouseListener(new MyMouseListener());
 		addMouseMotionListener(new MyMouseMotionListener());
 		getContentPane().setBackground(Color.CYAN);
@@ -32,16 +36,15 @@ public class MotionParallax extends JFrame {
 
     public void paint(Graphics g){
         super.paint(g);
-        drawBackgroundRiver(g, 0);
-        drawBackgroundMountain(g, .5, randomColor2);
-        drawForegroundMountains(g, .7, randomColor1);
-        drawSun(g, 0);  
-        drawRiver(g, 0.9);
-        drawWaves(g, 1);
-        drawFish(g, 1);
-        if(true){
-            drawSunglasses(g, 0.1);
-        }
+
+        drawSun(g, 0.05);
+        drawBackgroundMountain(g, 0.15, randomColor2);
+        drawForegroundMountains(g, 0.25, randomColor1);
+		drawBackgroundRiver(g, 0.5);
+		drawFish(g, 0.65);
+        drawRiver(g, 0.7);
+        drawWaves(g, 0.7);
+
     }
 
     public Color generateRandomColor(){
@@ -57,7 +60,11 @@ public class MotionParallax extends JFrame {
     public void drawSun(Graphics g, double layer){
 		g.setColor(Color.YELLOW);
 		Point sunP = computeParallaxPos(new Point(350, 100), layer);
-        g.fillOval(sunP.x, sunP.y, 100, 100);
+		g.fillOval(sunP.x, sunP.y, 100, 100);
+		
+		if(isOn){
+			drawSunglasses(g, layer);
+		}
     }
 
     public void drawRiver(Graphics g, double layer){
@@ -67,28 +74,48 @@ public class MotionParallax extends JFrame {
     }
 
     public void drawBackgroundRiver(Graphics g, double layer){
-		g.setColor(Color.BLUE);
+		g.setColor(new Color(0, 0, 210));
 		Point river = computeParallaxPos(new Point(-200, 400), layer);
         g.fillRect(river.x, river.y, 1000, 200);
 	}
 
     public void drawBackgroundMountain(Graphics g, double layer, Color randomColor2){
         int xValues[] = {100, 300, 500};
-        int yValues[] = {500, 200, 500};
+		int yValues[] = {500, 200, 500};
+
+		Point mt = new Point();
+		for(int i = 0; i < xValues.length; i++){
+			mt = computeParallaxPos(new Point(xValues[i], yValues[i]), layer);
+			xValues[i] = mt.x;
+			yValues[i] = mt.y;
+		}
+
         g.setColor(randomColor2);
         g.fillPolygon(xValues, yValues, 3);
     }
 
     public void drawForegroundMountains(Graphics g, double layer, Color randomColor1){
         int xValues[] = {-50, 130, 310, 440, 570};
-        int yValues[] = {500, 150, 500, 260, 500};
+		int yValues[] = {500, 150, 500, 260, 500};
+		
+		Point mt = new Point();
+		for(int i = 0; i < xValues.length; i++){
+			mt = computeParallaxPos(new Point(xValues[i], yValues[i]), layer);
+			xValues[i] = mt.x;
+			yValues[i] = mt.y;
+		}
+
         g.setColor(randomColor1);
         g.fillPolygon(xValues, yValues, 5);
     }
 
     public void drawFish(Graphics g, double layer){
-        int xValues[] = {300, 310, 300};
-		int yValues[] = {430, 440, 450};
+		
+		fishPos.x = (fishPos.x + 10) % 1000;
+		fishPos.y = (int)(10 * Math.sin(fishPos.x / 10));
+
+        int xValues[] = {fishPos.x - 200, fishPos.x -190, fishPos.x -200};
+		int yValues[] = {fishPos.y + 430, fishPos.y + 440, fishPos.y + 450};
 
 		Point fish[] = new Point[3];
 		for(int i = 0; i < 3; i++){
@@ -99,7 +126,7 @@ public class MotionParallax extends JFrame {
 
 		g.setColor(Color.RED);
 		
-		Point fishOval = computeParallaxPos(new Point(308, 430), layer);
+		Point fishOval = computeParallaxPos(new Point(fishPos.x - 192, fishPos.y + 430), layer);
         g.fillOval(fishOval.x, fishOval.y, 30, 20);
 
         g.fillPolygon(xValues, yValues, 3);
