@@ -6,12 +6,16 @@ import java.util.Random;
 public class MotionParallax extends JFrame {
 	Timer timer;
 	Point mousePos;
+    Color randomColor1;
+    Color randomColor2;
 
 	public MotionParallax(){
+        randomColor1 = generateRandomColor();
+        randomColor2 = generateRandomColor();
 		timer = new Timer(600, new timerListener());
 		mousePos = new Point();
 		addMouseMotionListener(new MyMouseMotionListener());
-		
+		getContentPane().setBackground(Color.CYAN);
 		setTitle("Motion Parallax");
 		setSize(500, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,57 +29,50 @@ public class MotionParallax extends JFrame {
     public void paint(Graphics g){
         super.paint(g);
         drawBackgroundRiver(g, 0);
-        drawBackgroundMountain(g, .5);
-        drawForegroundMountains(g, .7);
+        drawBackgroundMountain(g, .5, randomColor2);
+        drawForegroundMountains(g, .7, randomColor1);
         drawSun(g, 0);  
         drawRiver(g, 0.9);
         drawWaves(g, 1);
         drawFish(g, 1);
     }
 
+    public Color generateRandomColor(){
+        Color randomColor;
+        Random rand = new Random();
+        int red = rand.nextInt(256);
+        int green = rand.nextInt(256);
+        int blue = rand.nextInt(256);
+        randomColor = new Color(red,green,blue);
+        return randomColor;
+    }
+
     public void drawSun(Graphics g, double layer){
         g.setColor(Color.YELLOW);
-        g.drawOval(350, 100, 100, 100);
         g.fillOval(350, 100, 100, 100);
     }
 
     public void drawRiver(Graphics g, double layer){
-        g.setColor(Color.CYAN);
-        g.drawRect(0, 400, 500, 100);
+        g.setColor(Color.BLUE);
         g.fillRect(0, 400, 500, 100);
     }
 
     public void drawBackgroundRiver(Graphics g, double layer){
-        g.setColor(Color.BLUE);
-        g.drawRect(0, 400, 500, 100);
+        g.setColor(Color.CYAN);
         g.fillRect(0, 400, 500, 100);
     }
 
-    public void drawBackgroundMountain(Graphics g, double layer){
+    public void drawBackgroundMountain(Graphics g, double layer, Color randomColor2){
         int xValues[] = {100, 300, 500};
         int yValues[] = {500, 200, 500};
-        Random rand = new Random();
-        int red = rand.nextInt(256);
-        int green = rand.nextInt(256);
-        int blue = rand.nextInt(256);
-
-        Color randomColor = new Color(red,green,blue);
-
-        g.setColor(randomColor);
+        g.setColor(randomColor2);
         g.fillPolygon(xValues, yValues, 3);
     }
 
-    public void drawForegroundMountains(Graphics g, double layer){
+    public void drawForegroundMountains(Graphics g, double layer, Color randomColor1){
         int xValues[] = {-50, 130, 310, 440, 570};
         int yValues[] = {500, 150, 500, 260, 500};
-        Random rand = new Random();
-        int red = rand.nextInt(256);
-        int green = rand.nextInt(256);
-        int blue = rand.nextInt(256);
-
-        Color randomColor = new Color(red,green,blue);
-
-        g.setColor(randomColor);
+        g.setColor(randomColor1);
         g.fillPolygon(xValues, yValues, 5);
     }
 
@@ -83,7 +80,6 @@ public class MotionParallax extends JFrame {
         int xValues[] = {300, 310, 300};
         int yValues[] = {450, 460, 470};
         g.setColor(Color.RED);
-        g.drawOval(308, 450, 30, 20);
         g.fillOval(308, 450, 30, 20);
         g.fillPolygon(xValues, yValues, 3);
 
