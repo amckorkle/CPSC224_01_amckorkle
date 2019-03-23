@@ -10,6 +10,7 @@ public class MotionParallax extends JFrame {
 	Point fishPos;
     Color randomColor1;
     Color randomColor2;
+    boolean isOn = false;
 
 	public MotionParallax(){
 		timer = new Timer(60, new timerListener());
@@ -59,7 +60,11 @@ public class MotionParallax extends JFrame {
     public void drawSun(Graphics g, double layer){
 		g.setColor(Color.YELLOW);
 		Point sunP = computeParallaxPos(new Point(350, 100), layer);
-        g.fillOval(sunP.x, sunP.y, 100, 100);
+		g.fillOval(sunP.x, sunP.y, 100, 100);
+		
+		if(isOn){
+			drawSunglasses(g, layer);
+		}
     }
 
     public void drawRiver(Graphics g, double layer){
@@ -145,6 +150,13 @@ public class MotionParallax extends JFrame {
         }
     }
 
+    public void drawSunglasses(Graphics g, double layer){
+        int xValues[] = {345, 455, 450, 430, 410, 400, 390, 370, 350};
+        int yValues[] = {140, 140, 160, 170, 160, 142, 160, 170, 160};
+        g.setColor(Color.BLACK);
+        g.fillPolygon(xValues, yValues, 9);
+    }
+
 	public static void main(String[] args){
 		new MotionParallax();
     }
@@ -170,10 +182,14 @@ public class MotionParallax extends JFrame {
             repaint();
         }
         public void mouseReleased(MouseEvent e){
+            isOn = !isOn;
+            repaint();
         }
         public void mouseEntered(MouseEvent e){
+            timer.start();
         }
         public void mouseExited(MouseEvent e){
+            timer.stop();
         }
     }
 
