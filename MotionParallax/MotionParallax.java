@@ -2,6 +2,7 @@
 Assignment 4
 due date: 3/25/19
 names: Ayla McKorkle and Kasey Davis
+github: amckorkle
 */
 
 import javax.swing.*;
