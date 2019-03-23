@@ -159,8 +159,10 @@ public class MotionParallax extends JFrame {
             repaint();
         }
         public void mouseEntered(MouseEvent e){
+            timer.start();
         }
         public void mouseExited(MouseEvent e){
+            timer.stop();
         }
     }
 
