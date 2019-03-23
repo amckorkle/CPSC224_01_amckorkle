@@ -16,7 +16,7 @@ public class MotionParallax extends JFrame {
 	Point fishPos;
     Color randomColor1;
     Color randomColor2;
-    boolean isOn = false;
+    boolean areSunglassesOn = false;
 
 	public MotionParallax(){
 		timer = new Timer(60, new timerListener());
@@ -68,8 +68,8 @@ public class MotionParallax extends JFrame {
 		Point sunP = computeParallaxPos(new Point(350, 100), layer);
 		g.fillOval(sunP.x, sunP.y, 100, 100);
 		
-		if(isOn){
-			drawSunglasses(g, layer);
+		if(areSunglassesOn){
+			drawSunglasses(g, layer + 0.02);
 		}
     }
 
@@ -158,7 +158,15 @@ public class MotionParallax extends JFrame {
 
     public void drawSunglasses(Graphics g, double layer){
         int xValues[] = {345, 455, 450, 430, 410, 400, 390, 370, 350};
-        int yValues[] = {140, 140, 160, 170, 160, 142, 160, 170, 160};
+		int yValues[] = {140, 140, 160, 170, 160, 142, 160, 170, 160};
+		
+		Point sunglasses = new Point();
+		for(int i = 0; i < xValues.length; i++){
+			sunglasses = computeParallaxPos(new Point(xValues[i], yValues[i]), layer);
+			xValues[i] = sunglasses.x;
+			yValues[i] = sunglasses.y;
+		}
+
         g.setColor(Color.BLACK);
         g.fillPolygon(xValues, yValues, 9);
     }
@@ -188,7 +196,7 @@ public class MotionParallax extends JFrame {
             repaint();
         }
         public void mouseReleased(MouseEvent e){
-            isOn = !isOn;
+            areSunglassesOn = !areSunglassesOn;
             repaint();
         }
         public void mouseEntered(MouseEvent e){
