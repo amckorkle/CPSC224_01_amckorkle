@@ -14,6 +14,7 @@ public class MotionParallax extends JFrame {
         randomColor2 = generateRandomColor();
 		timer = new Timer(600, new timerListener());
 		mousePos = new Point();
+        addMouseListener(new MyMouseListener());
 		addMouseMotionListener(new MyMouseMotionListener());
 		getContentPane().setBackground(Color.CYAN);
 		setTitle("Motion Parallax");
@@ -117,6 +118,22 @@ public class MotionParallax extends JFrame {
 			repaint();
 		}
 	}
+
+    private class MyMouseListener implements MouseListener{
+        public void mousePressed(MouseEvent e){
+        }
+        public void mouseClicked(MouseEvent e){
+            randomColor1 = generateRandomColor();
+            randomColor2 = generateRandomColor();
+            repaint();
+        }
+        public void mouseReleased(MouseEvent e){
+        }
+        public void mouseEntered(MouseEvent e){
+        }
+        public void mouseExited(MouseEvent e){
+        }
+    }
 
 	private class MyMouseMotionListener implements MouseMotionListener{
 		public void mouseDragged(MouseEvent e)
