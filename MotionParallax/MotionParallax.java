@@ -1,3 +1,9 @@
+/*
+Assignment 4
+due date: 3/25/19
+names: Ayla McKorkle and Kasey Davis
+*/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
