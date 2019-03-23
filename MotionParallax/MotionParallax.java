@@ -6,12 +6,19 @@ import java.util.Random;
 public class MotionParallax extends JFrame {
 	Timer timer;
 	Point mousePos;
+    Color randomColor1;
+    Color randomColor2;
 
 	public MotionParallax(){
 		timer = new Timer(30, new timerListener());
+
+        randomColor1 = generateRandomColor();
+        randomColor2 = generateRandomColor();
+
 		mousePos = new Point();
+        addMouseListener(new MyMouseListener());
 		addMouseMotionListener(new MyMouseMotionListener());
-		
+		getContentPane().setBackground(Color.CYAN);
 		setTitle("Motion Parallax");
 		setSize(500, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,13 +31,25 @@ public class MotionParallax extends JFrame {
 
     public void paint(Graphics g){
         super.paint(g);
+
         drawSun(g, 0.05);
-        //drawBackgroundMountain(g, 0.15);
-        //drawForegroundMountains(g, 0.25);
+        //drawBackgroundMountain(g, 0.15, randomColor2);
+        //drawForegroundMountains(g, 0.25, randomColor1);
 		drawBackgroundRiver(g, 0.5);
 		drawFish(g, 0.65);
         drawRiver(g, 0.7);
         drawWaves(g, 0.7);
+
+    }
+
+    public Color generateRandomColor(){
+        Color randomColor;
+        Random rand = new Random();
+        int red = rand.nextInt(256);
+        int green = rand.nextInt(256);
+        int blue = rand.nextInt(256);
+        randomColor = new Color(red,green,blue);
+        return randomColor;
     }
 
     public void drawSun(Graphics g, double layer){
@@ -49,39 +68,25 @@ public class MotionParallax extends JFrame {
 		g.setColor(Color.BLUE);
 		Point river = computeParallaxPos(new Point(-200, 400), layer);
         g.fillRect(river.x, river.y, 1000, 200);
-    }
+	}
 
-    public void drawBackgroundMountain(Graphics g, double layer){
+    public void drawBackgroundMountain(Graphics g, double layer, Color randomColor2){
         int xValues[] = {100, 300, 500};
         int yValues[] = {500, 200, 500};
-        Random rand = new Random();
-        int red = rand.nextInt(256);
-        int green = rand.nextInt(256);
-        int blue = rand.nextInt(256);
-
-        Color randomColor = new Color(red,green,blue);
-
-        g.setColor(randomColor);
+        g.setColor(randomColor2);
         g.fillPolygon(xValues, yValues, 3);
     }
 
-    public void drawForegroundMountains(Graphics g, double layer){
+    public void drawForegroundMountains(Graphics g, double layer, Color randomColor1){
         int xValues[] = {-50, 130, 310, 440, 570};
         int yValues[] = {500, 150, 500, 260, 500};
-        Random rand = new Random();
-        int red = rand.nextInt(256);
-        int green = rand.nextInt(256);
-        int blue = rand.nextInt(256);
-
-        Color randomColor = new Color(red,green,blue);
-
-        g.setColor(randomColor);
+        g.setColor(randomColor1);
         g.fillPolygon(xValues, yValues, 5);
     }
 
     public void drawFish(Graphics g, double layer){
         int xValues[] = {300, 310, 300};
-		int yValues[] = {420, 440, 450};
+		int yValues[] = {430, 440, 450};
 
 		Point fish[] = new Point[3];
 		for(int i = 0; i < 3; i++){
@@ -94,6 +99,7 @@ public class MotionParallax extends JFrame {
 		
 		Point fishOval = computeParallaxPos(new Point(308, 420), layer);
         g.fillOval(fishOval.x, fishOval.y, 30, 20);
+
         g.fillPolygon(xValues, yValues, 3);
 
 
@@ -130,6 +136,22 @@ public class MotionParallax extends JFrame {
 			repaint();
 		}
 	}
+
+    private class MyMouseListener implements MouseListener{
+        public void mousePressed(MouseEvent e){
+        }
+        public void mouseClicked(MouseEvent e){
+            randomColor1 = generateRandomColor();
+            randomColor2 = generateRandomColor();
+            repaint();
+        }
+        public void mouseReleased(MouseEvent e){
+        }
+        public void mouseEntered(MouseEvent e){
+        }
+        public void mouseExited(MouseEvent e){
+        }
+    }
 
 	private class MyMouseMotionListener implements MouseMotionListener{
 		public void mouseDragged(MouseEvent e)
