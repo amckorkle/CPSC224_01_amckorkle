@@ -19,8 +19,10 @@ public class MotionParallax extends JFrame {
     boolean areSunglassesOn = false;
 
 	public MotionParallax(){
+		// Create a 60ms timer
 		timer = new Timer(60, new timerListener());
 
+		// Starting colors for the mountains
         randomColor1 = generateRandomColor();
         randomColor2 = generateRandomColor();
 
@@ -36,13 +38,13 @@ public class MotionParallax extends JFrame {
 
 		timer.start();
 		setVisible(true);
-
-
 	}
 
     public void paint(Graphics g){
         super.paint(g);
 
+		// the second parameter indicates the portion of the mouse's movement that
+		//   should reflected by the object in question
         drawSun(g, 0.05);
         drawBackgroundMountain(g, 0.15, randomColor2);
         drawForegroundMountains(g, 0.25, randomColor1);
@@ -50,7 +52,6 @@ public class MotionParallax extends JFrame {
 		drawFish(g, 0.65);
         drawRiver(g, 0.7);
         drawWaves(g, 0.5);
-
     }
 
     public Color generateRandomColor(){
@@ -116,7 +117,8 @@ public class MotionParallax extends JFrame {
     }
 
     public void drawFish(Graphics g, double layer){
-		
+		// At each time step, the fish moves a constant amount in the x direction
+		//   and a varying direction in the y
 		fishPos.x = (fishPos.x + 10) % 1000;
 		fishPos.y = (int)(10 * Math.sin(fishPos.x / 10));
 
@@ -146,6 +148,7 @@ public class MotionParallax extends JFrame {
         g.setColor(Color.WHITE);
         for(int j = 0; j < 3; j++){
             for(int i = 0; i < 5; i++){
+
 				Point waveParallax = computeParallaxPos(new Point(x, y), layer);
                 g.drawArc(waveParallax.x, waveParallax.y, 10, 10, 360, 180);
 				x+=10;
@@ -153,11 +156,12 @@ public class MotionParallax extends JFrame {
 			  	waveParallax = computeParallaxPos(new Point(x, y), layer);
                 g.drawArc(waveParallax.x, waveParallax.y, 10, 10, 180, 180);
                 x+=10;
-            }
+			}
+
+			// these set where the next wave should be and alter the amount of parallax
             x+=70;
 			y+=20;
 			layer += 0.10;
-			
         }
     }
 
@@ -174,40 +178,49 @@ public class MotionParallax extends JFrame {
 
         g.setColor(Color.BLACK);
         g.fillPolygon(xValues, yValues, 9);
-    }
-
-	public static void main(String[] args){
-		new MotionParallax();
-    }
-
+	}
+	
 	public Point computeParallaxPos(Point objPos, double parallaxAmt){
 		int x = objPos.x + (int)(parallaxAmt * (mousePos.x - 250));
 		int y = objPos.y + (int)(parallaxAmt * (mousePos.y - 250));
 		return new Point(x, y);
 	}
 
+	public static void main(String[] args){
+		new MotionParallax();
+    }
+
+	
+
 	private class timerListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
+			// the screen is repainted every 60ms
 			repaint();
 		}
 	}
 
     private class MyMouseListener implements MouseListener{
         public void mousePressed(MouseEvent e){
-        }
+		}
+		
         public void mouseClicked(MouseEvent e){
+			//every time the mouse is clicked, the mountains get a new color
             randomColor1 = generateRandomColor();
             randomColor2 = generateRandomColor();
-            repaint();
-        }
+		}
+		
         public void mouseReleased(MouseEvent e){
+			// when the mouse is released the sun gets/loses its sunglasses
             areSunglassesOn = !areSunglassesOn;
-            repaint();
-        }
+		}
+		
         public void mouseEntered(MouseEvent e){
+			// unpauses the screen when the mouse returns to the screen
             timer.start();
-        }
+		}
+		
         public void mouseExited(MouseEvent e){
+			// pauses the screen when the mouse leaves the screen
             timer.stop();
         }
     }
@@ -220,6 +233,7 @@ public class MotionParallax extends JFrame {
         
         public void mouseMoved(MouseEvent e)
         {
+			// always reset the mouse location when the mosue moves
 			mousePos.setLocation(e.getX(), e.getY());
 		}
 		
